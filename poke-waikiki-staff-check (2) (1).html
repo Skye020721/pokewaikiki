@@ -106,6 +106,41 @@
     .container { padding-bottom: 1rem; }
     .score-card { background: #1a6b4a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+  .intro-card {
+  line-height: 1.8;
+}
+
+.intro-block {
+  margin-bottom: 1.25rem;
+}
+
+.intro-block:last-child {
+  margin-bottom: 0;
+}
+
+.intro-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.intro-card p {
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 0.7rem;
+}
+
+.intro-list {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.intro-list li {
+  font-size: 14px;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
 </style>
 </head>
 <body>
@@ -125,6 +160,51 @@
         <div class="field"><label>評価者</label><input id="evaluator" placeholder="評価者名"></div>
       </div>
     </div>
+    <div class="card intro-card">
+  <div class="intro-block">
+    <div class="intro-title">💕まず初めに</div>
+    <p>
+      このチェックシートは、皆が毎回働いている時に、意識を持って行動することが全てだということを伝えるために作りました。もちろん忘れること、間違えることもあるでしょう。しかし、毎日仕事に入る際にそれぞれ意識をして働いていけば、自ずとできるようになります。意識をして行動しましょう。
+    </p>
+    <p>
+      注意※ だれだれはしていないよね、私はしているけど、などと思うことは少し違います。そのようなことを問いたいわけではありませんので誤解のないようにお願いします。毎回継続できるよう皆で協力して、毎日意識をして、取り組んでいきましょう。
+    </p>
+  </div>
+
+  <div class="intro-block">
+    <div class="intro-title">働く前に必ず守る基本事項 9点</div>
+    <ol class="intro-list">
+      <li>スローガン『温かいものは温かいうちに　冷たいものは冷たいうちに』</li>
+      <li>うそをつかない。仕事にうそをつかない（さぼらない）</li>
+      <li>会社の（お店の）ものをもっていかない</li>
+      <li>携帯電話は緊急時のみ、責任者に伝えて使用すること</li>
+      <li>トイレは必ず一言伝えてから行くこと</li>
+      <li>お客様が看板を見ていたらすぐに声をかけること</li>
+      <li>ドリンクはルールを守ること</li>
+      <li>遅刻をしないこと</li>
+      <li>まかないは、ひとり1ボール。普通のものと同じ量</li>
+    </ol>
+  </div>
+
+  <div class="intro-block">
+    <div class="intro-title">本題</div>
+    <p>
+      私たちのこのフードコートビジネスにとって、フロントの冷蔵機の中を美しく、綺麗に見せることは最も重要です。いわば心臓の部分。フロントが汚ければ、買いたい気持ちが減少します。
+    </p>
+    <p>
+      フロントガラスは、朝と夕方は必ず拭き、野菜や魚も常においしそうに見えるように、モリモリに盛り付けてください。冷蔵機の内側も常に綺麗に保ちましょう。
+    </p>
+    <p>
+      ★お客様ファースト！ 売らないと儲からない、基本です。皆で声を掛け合って、営業がスムースに動くように協力してください。
+    </p>
+    <p>
+      ★食中毒！ 生ものを扱うため、手洗い、手袋交換、衛生管理を徹底してください。食中毒が出たら、お店も会社もなくなります。
+    </p>
+    <p>
+      以下チェック項目にチェックを入れ、毎月渡しますので確認をお願いします。できてること、できてないこと、知らないことなどあると思いますが、把握できるようにしましょう！
+    </p>
+  </div>
+</div>
 
     <div class="score-card">
       <div class="score-top">
@@ -216,6 +296,7 @@ const SECTIONS = [
     "野菜たちを2缶ともふわふわにセットできる"
   ]},
   { id:"poke", name:"POKE作り・盛り付け", items:[
+    "最後にソースかけるから汚くてもいいや、の考えはやめてください。いつも綺麗に！を意識！お客様もあなたの盛り付けを見ていますの意味合いを理解している。
     "ライスを平らに押しつぶしすぎないように平たくすることができる",
     "適量のポン酢ソースをかけることができる",
     "セサミシードを全体的に適量かけることができる",
