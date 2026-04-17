@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポケワイキキ スタッフチェックシート</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a6b4a;
+    --primary-mid: #2d9469;
+    --diamond: #3b82f6;
+    --diamond-light: #eff6ff;
+    --platinum: #7c3aed;
+    --platinum-light: #f5f3ff;
+    --gold: #d97706;
+    --gold-light: #fffbeb;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f8faf9;
+    --white: #ffffff;
+    --check-yes: #059669;
+    --check-mid: #d97706;
+    --check-no: #dc2626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 16px; }
+
+  /* ---- TOP BAR ---- */
+  .top-bar { background: var(--primary); padding: 0.85rem 1rem; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .top-bar .logo { font-size: 15px; font-weight: 700; color: #fff; }
+  .top-bar .logo span { color: #a7f3d0; }
+
+  /* ---- BOTTOM NAV ---- */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--border); display: flex; z-index: 100; }
+  .bnav-btn { flex: 1; padding: 10px 4px 12px; border: none; background: none; font-family: inherit; font-size: 10px; color: var(--text-muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.15s; }
+  .bnav-btn .icon { font-size: 20px; line-height: 1; }
+  .bnav-btn.active { color: var(--primary); font-weight: 700; }
+
+  .container { max-width: 600px; margin: 0 auto; padding: 1rem 0.85rem 5rem; }
+
+  /* ---- CARDS ---- */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; }
+
+  /* ---- INFO FIELDS ---- */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .info-grid .field:last-child { grid-column: 1 / -1; }
+  .field label { font-size: 11px; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 5px; letter-spacing: 0.05em; }
+  .field input { width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; font-family: inherit; color: var(--text); background: var(--bg); }
+  .field input:focus { outline: none; border-color: var(--primary-mid); background: var(--white); }
+
+  /* ---- SCORE CARD ---- */
+  .score-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; color: white; }
+  .score-top { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
+  .score-big { font-size: 44px; font-weight: 700; line-height: 1; }
+  .score-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+  .rank-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: auto; white-space: nowrap; }
+  .rank-diamond { background: var(--diamond-light); color: var(--diamond); }
+  .rank-platinum { background: var(--platinum-light); color: var(--platinum); }
+  .rank-gold { background: var(--gold-light); color: var(--gold); }
+  .rank-none { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
+  .legend { font-size: 11px; opacity: 0.75; margin-bottom: 8px; }
+  .section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
+  .sec-chip { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 7px 8px; }
+  .sec-chip-name { font-size: 10px; opacity: 0.8; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sec-chip-pct { font-size: 15px; font-weight: 700; }
+  .sec-bar { height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 4px; }
+  .sec-bar-fill { height: 100%; background: #a7f3d0; border-radius: 2px; transition: width 0.3s; }
+
+  /* ---- SECTION NAV (horizontal scroll) ---- */
+  .nav-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; margin-bottom: 0.85rem; scrollbar-width: none; }
+  .nav-scroll::-webkit-scrollbar { display: none; }
+  .nav-btn { flex-shrink: 0; padding: 8px 14px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; background: var(--white); color: var(--text-muted); cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+  /* ---- SECTION PANEL ---- */
+  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+  .section-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .section-pct { font-size: 13px; color: var(--text-muted); }
+
+  /* ---- CHECK ITEMS ---- */
+  .item { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
+  .item:last-child { border-bottom: none; }
+  .item-text { flex: 1; font-size: 13px; line-height: 1.55; color: var(--text); }
+  .rating-group { display: flex; gap: 5px; flex-shrink: 0; }
+  .rb { width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--border); background: #f9fafb; font-size: 14px; font-weight: 700; cursor: pointer; color: var(--text-muted); font-family: inherit; display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
+  .rb.sel-2 { background: #d1fae5; color: var(--check-yes); border-color: #6ee7b7; }
+  .rb.sel-1 { background: #fef3c7; color: var(--check-mid); border-color: #fcd34d; }
+  .rb.sel-0 { background: #fee2e2; color: var(--check-no); border-color: #fca5a5; }
+
+  /* ---- SAVE BUTTON ---- */
+  .btn-save { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 0.75rem; touch-action: manipulation; }
+  .btn-reset { width: 100%; padding: 12px; background: var(--white); color: var(--text-muted); border: 1px solid var(--border); border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 0.5rem; touch-action: manipulation; }
+
+  /* ---- HISTORY ---- */
+  .hist-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+  .hist-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .hist-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .hist-del { font-size: 12px; color: var(--text-muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: var(--bg); font-family: inherit; flex-shrink: 0; touch-action: manipulation; }
+
+  .empty-msg { font-size: 13px; color: var(--text-muted); text-align: center; padding: 2rem 0; }
+
+  @media print {
+    .top-bar, .bottom-nav, .nav-scroll, .btn-save, .btn-reset { display: none !important; }
+    .container { padding-bottom: 1rem; }
+    .score-card { background: #1a6b4a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo">🌺 ポケワイキキ <span>スタッフチェックシート</span></div>
+</div>
+
+<div class="container">
+
+  <!-- CHECK TAB -->
+  <div id="tab-check">
+    <div class="card">
+      <div class="info-grid">
+        <div class="field"><label>スタッフ名</label><input id="staff-name" placeholder="名前を入力"></div>
+        <div class="field"><label>日付</label><input id="eval-date" type="date"></div>
+        <div class="field"><label>評価者</label><input id="evaluator" placeholder="評価者名"></div>
+      </div>
+    </div>
+
+    <div class="score-card">
+      <div class="score-top">
+        <div>
+          <div class="score-big" id="total-pct">—</div>
+          <div class="score-sub" id="score-detail">まだ評価がありません</div>
+        </div>
+        <div class="rank-badge rank-none" id="rank-badge">ランクなし</div>
+      </div>
+      <div class="legend">◎ できる＝2点　△ 知っているができていない＝1点　✕ 知らなかった＝0点</div>
+      <div class="section-grid" id="section-scores"></div>
+    </div>
+
+    <div class="nav-scroll" id="section-nav"></div>
+    <div class="card" id="section-panel"></div>
+
+    <button class="btn-save" onclick="saveRecord()">✓ この結果を保存する</button>
+    <button class="btn-reset" onclick="resetAll()">リセット</button>
+  </div>
+
+  <!-- HISTORY TAB -->
+  <div id="tab-history" style="display:none;">
+    <div class="card">
+      <div style="font-size:15px; font-weight:700; margin-bottom:1rem; color:var(--text);">保存済み履歴</div>
+      <div id="history-list"><div class="empty-msg">まだ保存された記録はありません。</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav-btn active" id="bnav-check" onclick="showTab('check')">
+    <span class="icon">☑️</span>チェック
+  </button>
+  <button class="bnav-btn" id="bnav-history" onclick="showTab('history')">
+    <span class="icon">🕐</span>履歴
+  </button>
+</nav>
+
+<script>
+const SECTIONS = [
+  { id:"front", name:"フロント", items:[
+    "フロント全体、キッチン全体をアルコールで拭くことができる",
+    "フロントのガラス、チキン前、チップス前のグラス、開け閉めするドアをwindexでしっかり拭くことができる",
+    "フロント冷蔵庫スイッチをつけて、温度をチェックすることができる",
+    "ふきんが汚い場合、後ろのシンクできれいにゆすぐことができる",
+    "全部机などアルコールでふくことができる",
+    "フロントの冷蔵機の中を美しく綺麗に見せることが重要であることを理解している",
+    "朝、夕方は必ず冷蔵機のガラスをWindexで拭いてきれいにすることができる意識している",
+    "中の野菜や魚たちをいつもモリモリに保つことができる",
+    "魚を出した後、野菜を入れ替えた後に、すぐに使わない缶もふわふわに自然に見えるようにすることができる",
+    "冷蔵機内側をいつも綺麗に拭くことができる",
+    "お客様がメニュー看板を見ていたらすぐに声をかけることができる",
+    "2人体制でフロントにいないときに、お客様がメニューを見ていたらすぐにフロントに行き声をかけることができる"
+  ]},
+  { id:"front-basic", name:"フロント基本事項", items:[
+    "手洗いができる",
+    "笑顔でレジの接客ができる",
+    "お店の前でメニューを見て考えている人にHelloなど声掛けができる",
+    "見ている人に必ず話しかける（Hi, welcome, Try Hawaii's best favorite!）",
+    "レジに並ぶ人、後ろの人たちにも目くばせ＆ I get your order soon.",
+    "お店の前で悩んでいる人に、スモールやミディアムの容器の容量説明ができる",
+    "時間がかかりそうなときは I'll be right with you, give me one second など伝えることができる",
+    "必ずフロントに1人いなくてはいけないことを理解している",
+    "フロント一人オペレーションの場合、複数組のオーダーをまとめて取ってから作る意味を理解している",
+    "フロントのお客様の前でスタッフ同士で日本語を話さないようにする意味を分かっている",
+    "お客様が間違えたり落としてしまったりしたら、すぐに新しいものをお作りすることができる",
+    "衛生に気を使い、手袋交換・手洗いなどができる",
+    "仕事中は必要な時以外携帯を見ないことを理解している",
+    "いつも衛生に気を配り、手洗い・アルコール消毒を意識している",
+    "いつも笑顔で対応することができる",
+    "ボールを作った後、すぐにもりもりにリセットすることができる",
+    "朝の前セット魚は、もりもり感を朝から出すことができる",
+    "ショーケースの中のトッピングをいつも補充できる",
+    "いつも周りをきれいに拭いたり整えたりすることができる",
+    "お客様がフロントにいて選んでいる時など、お客様優先で対応できる",
+    "下のものが落ちてしまった時、拾うなら手袋を変えることができる"
+  ]},
+  { id:"fish-front", name:"フロント魚", items:[
+    "魚のシートをきれいにしっかりとることができる",
+    "魚の中に水分がある際を確認し、お客様がいないときにふき取ることができる",
+    "色が変だったり様子がおかしい時に注意して見て伝えることができる",
+    "魚出す際にペーパーや曜日シールをお客様が見えないように丁寧に取り、しっかりふわふわにセットすることができる"
+  ]},
+  { id:"veg-front", name:"フロント野菜", items:[
+    "野菜の入れ替え時に、ラップが異物混入しないように気を付けながらラップを取ることができる",
+    "Tomatoなどに汁が溜まってそうな時は、お客様がいない時に汁を右の流し台にスマートに捨てることができる",
+    "野菜たちを2缶ともふわふわにセットできる"
+  ]},
+  { id:"poke", name:"POKE作り・盛り付け", items:[
+    "ライスを平らに押しつぶしすぎないように平たくすることができる",
+    "適量のポン酢ソースをかけることができる",
+    "セサミシードを全体的に適量かけることができる",
+    "適量の野菜を入れることができる",
+    "野菜を入れる際に、真ん中に白ご飯が見えるように端側に入れることができる",
+    "適量のプロテインを救うことができる",
+    "しっかり15回以上かき混ぜることができる",
+    "ソースをS5回、M7回適量かけることができる",
+    "メインのプロテインを真ん中に見栄え良くデザインして入れることができる",
+    "AhiSalmonの場合、広げて入れることができる",
+    "きれいに盛り付けることができる（レタス入れすぎない、メインはプロテイン）",
+    "Mの場合も真ん中だけにたまりすぎないようにうまく入れることができる",
+    "チキンの場合、先にチキンでフォームを作りFishを入れる方法を理解している",
+    "TOFUボールの適量を理解している（S6,7　M8,9）",
+    "TOFUxチキンボールの適量を理解している（S4,5　M5,6）",
+    "プロテインが少なすぎる場合は臨機応変に対応することができる",
+    "声を出して呼び、番号ボタンを押すことができる",
+    "お客様が来ない場合は蓋をしてほこりなどが入らないようにすることができる",
+    "サラダボールのレタスをちょうど良い量で入れることができる",
+    "アボカドをきれいに規定通りにボールに盛り付けすることができる"
+  ]},
+  { id:"operation", name:"オペレーション", items:[
+    "お客様ファーストの意味を理解している",
+    "必ず一人前にいる意味を分かっている",
+    "フロントが込んできた際はすぐに前に出ていく",
+    "仕込みの人が先に出ることを理解している",
+    "魚担当の人はフロントお願いしまーすと大きな声で声掛けをできる",
+    "すぐいけない場合はお互い声掛けをできる",
+    "お客様がたくさん来たらすぐに全員フロント集合しなくてはいけない意味を理解している",
+    "複数組並んだ時、一気にオーダーをとってから一気に作ることを理解している",
+    "声を出してフロントお願いします！やチキン残り半分ですなど仕事でのコミュニケーションができる",
+    "込んでいないときにチキンが必要な場合、迷わず窓からチキンお願いしますと声をかけることができる"
+  ]},
+  { id:"idle", name:"アイドルタイム", items:[
+    "ジュースなどの冷蔵庫の取っ手やグラスを拭くことができる",
+    "チキン回りやライスクッカー回り、レジなどきれいに拭くことができる",
+    "ジュース、On the sideソース、野菜、ライスなど補充ができる"
+  ]},
+  { id:"chicken", name:"チキン", items:[
+    "フロントにチキン置くときに電気が当たっている方にきれいにまとめセットできる",
+    "下に敷いている葉っぱをきちんとお客様目線でセットすることができる",
+    "アイドルタイムなどに古く固くなったチキンを提供せず新しいものを提供するよう意識できている",
+    "暇なときにチキンをフロントにずっと置かないで内部のカゴで保温しておいしいものを提供しようとする意識がある",
+    "提供に時間がかかる場合お客様にしっかり説明することができる",
+    "きちんと皮までカットすることができる",
+    "チキンを揚げることができる",
+    "お客様の状況を把握し、チキンを揚げることができる",
+    "皆で協力してチキンがなくなったこと、何個必要などコミュニケーションがとれる",
+    "油を落とすために揚がったチキンをカゴの中で縦に置き換えることができる"
+  ]},
+  { id:"rice", name:"お米", items:[
+    "ライスを炊くことができる",
+    "ライスを洗うことができる",
+    "ライスがたけた後すぐに保温を切ることができる",
+    "お米仕込み量を確認して洗うことができる",
+    "保温を切って少し経ったら、ライスを少し混ぜることができる",
+    "ライスを半分ずつボールに移すことができる",
+    "ライスをボールに移した後、ペーパーとラップをし時間を書くことができる",
+    "前のライスがなくなったときにライスを入れ替えることができる",
+    "炊き上がったご飯を15分ほど蒸らした後かき混ぜることができる",
+    "ライスクッカーの裏の水をとって毎日捨てることができる",
+    "ライスクッカーのふちをきれいにできる",
+    "朝のライスのにおい・水水しさなど随時チェックできる"
+  ]},
+  { id:"wash", name:"洗い", items:[
+    "しっかり洗うことができる",
+    "魚の黒のバットの洗い方を知っている（角や外の淵もしっかり洗う）",
+    "スクーパーは中の汚れまでとる（カスが残らないよう確認できる）",
+    "スクーパーやフライヤー網を洗った後に、金具や毛がついていないか確認できる",
+    "前から持ってきた洗い物をきちんとお湯の中に入れることができる",
+    "サニタイザーから取り出し、きちんと水が切れるように工夫して置き乾かすことができる",
+    "乾いたものを定位置にきちんと戻すことができる",
+    "シンクの入れ物を動かして裏側もしっかり洗うことができる",
+    "左奥のシンクを毎日ブラシで洗うことができる"
+  ]},
+  { id:"clean", name:"クリーン", items:[
+    "手が空いた際に、キャッシャー前やチキン回り、冷蔵機などをアルコールで拭き掃除することができる",
+    "手が空いた際に、チキン台の下のシェルフをきれいに拭くことができる",
+    "シンクや一番後ろのシンクを毎日きれいに洗うことができる",
+    "フロント冷蔵機を朝・夕方きれいに拭くことができる",
+    "冷蔵機のドアをきれいに拭くことができる",
+    "Hand Washシンクをきれいに掃除できる",
+    "自分がテーブルを使い終わった際に、自分が使用した場所をきれいにすることができる",
+    "床をきれいに掃除できる"
+  ]},
+  { id:"other", name:"その他", items:[
+    "クロックイン・クロックアウトは前のレジですることができる",
+    "手を拭いたりした後に、ゴミ箱にペーパーを投げて捨てない",
+    "お客様の前で日本語で話さない",
+    "お客様の前で大きな声で関係ないことを話さない",
+    "人の悪口を言わない",
+    "それぞれの多様な価値観を尊重しながら働くことができる",
+    "きざみのりを揉みすぎずに適切なサイズで用意することができる",
+    "賄いは一人1ボール、通常と同じ分量ということを理解している",
+    "ドリンクを買う場合は、一人＄1で買えることを知っている",
+    "お水は一人1本飲んでよいことを知っている",
+    "生ものはすぐに冷蔵庫にしまうことができる",
+    "ドリンクは後ろを向いてはじの方かキッチンで飲む",
+    "フロント掃除のゴミクズはキッチンのゴミ箱に捨てることができる",
+    "デリバリーが来たらサインをし、Invoiceを封筒に入れることができる",
+    "フォークやナプキンなど最後のストックを使用した際に報告できる"
+  ]},
+  { id:"fish-prep", name:"魚（仕込み）", items:[
+    "デリバリー到着後はすぐに冷蔵庫にしまうことができる",
+    "魚を切っている最中に長い時間外に出る際はラップをして冷蔵庫にしまうなど衛生管理をできる",
+    "黒バットがきれいか確認し使用することができる",
+    "大きすぎず小さすぎずのちょうどよい大きさにカットすることができる"
+  ]},
+  { id:"prep", name:"仕込み", items:[
+    "レタスカットは小さすぎず大きすぎずカットできる",
+    "10時のオープン前までにフロントのセットができる",
+    "10時のオープン前または一番最初にフロントのガラス拭きができる",
+    "冷蔵機下の扇風機を外向きにセットできる",
+    "それぞれの仕込みができる",
+    "ライスの洗い方を知っていて洗える",
+    "ライスをどのくらい仕込めばよいか計算して洗いができる",
+    "使用したテーブルをしっかりきれいにすることができる",
+    "皆で連携して仕込みを進めることができる",
+    "アボカドをきれいに規定通りに切ってタッパーに入れることができる",
+    "芋の仕込みができる",
+    "フロントを見ながらお客様優先で仕込みができる"
+  ]}
+];
+
+let ratings = {};
+let currentSection = SECTIONS[0].id;
+
+SECTIONS.forEach(s => s.items.forEach((_, i) => { ratings[s.id+'_'+i] = null; }));
+
+function getStats() {
+  let total=0, max=0;
+  SECTIONS.forEach(s => s.items.forEach((_,i) => {
+    const v = ratings[s.id+'_'+i];
+    if(v!==null){ total+=v; max+=2; }
+  }));
+  return { total, max, pct: max>0 ? Math.round(total/max*100) : null };
+}
+
+function getSectionStats(sid) {
+  const s = SECTIONS.find(x=>x.id===sid);
+  let total=0, max=0;
+  s.items.forEach((_,i) => {
+    const v = ratings[sid+'_'+i];
+    if(v!==null){ total+=v; max+=2; }
+  });
+  return { total, max, pct: max>0 ? Math.round(total/max*100) : null };
+}
+
+function getRank(pct) {
+  if(pct>=95) return {label:"💎 ダイヤモンド", cls:"rank-diamond"};
+  if(pct>=85) return {label:"🥈 プラチナ", cls:"rank-platinum"};
+  if(pct>=75) return {label:"🥇 ゴールド", cls:"rank-gold"};
+  return {label:"ランクなし", cls:"rank-none"};
+}
+
+function renderSummary() {
+  const {total, max, pct} = getStats();
+  document.getElementById('total-pct').textContent = pct!==null ? pct+'%' : '—';
+  document.getElementById('score-detail').textContent = pct!==null ? total+' / '+max+'点' : 'まだ評価がありません';
+  const rb = document.getElementById('rank-badge');
+  if(pct!==null) { const r=getRank(pct); rb.textContent=r.label; rb.className='rank-badge '+r.cls; }
+  else { rb.textContent='ランクなし'; rb.className='rank-badge rank-none'; }
+
+  document.getElementById('section-scores').innerHTML = SECTIONS.map(s => {
+    const st = getSectionStats(s.id);
+    const p = st.pct!==null ? st.pct : 0;
+    return `<div class="sec-chip">
+      <div class="sec-chip-name">${s.name}</div>
+      <div class="sec-chip-pct">${st.pct!==null ? st.pct+'%' : '—'}</div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width:${p}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderNav() {
+  document.getElementById('section-nav').innerHTML = SECTIONS.map(s =>
+    '<button class="nav-btn'+(s.id===currentSection?' active':'')+'" data-sid="'+s.id+'">'+s.name+'</button>'
+  ).join('');
+  document.getElementById('section-nav').querySelectorAll('.nav-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ goSection(this.getAttribute('data-sid')); });
+  });
+}
+
+function renderPanel() {
+  const s = SECTIONS.find(x=>x.id===currentSection);
+  const st = getSectionStats(currentSection);
+  let html = '<div class="section-header"><div class="section-title">'+s.name+'</div><div class="section-pct">'+(st.pct!==null ? st.pct+'%('+st.total+'/'+st.max+'pt)' : '未評価')+'</div></div>';
+  s.items.forEach(function(item, i) {
+    const key = currentSection+'_'+i;
+    const v = ratings[key];
+    html += '<div class="item"><div class="item-text">'+item+'</div><div class="rating-group">'
+      + '<button class="rb'+(v===2?' sel-2':'')+'" data-key="'+key+'" data-val="2">◎</button>'
+      + '<button class="rb'+(v===1?' sel-1':'')+'" data-key="'+key+'" data-val="1">△</button>'
+      + '<button class="rb'+(v===0?' sel-0':'')+'" data-key="'+key+'" data-val="0">✕</button>'
+      + '</div></div>';
+  });
+  const panel = document.getElementById('section-panel');
+  panel.innerHTML = html;
+  panel.querySelectorAll('.rb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const key = this.getAttribute('data-key');
+      const val = parseInt(this.getAttribute('data-val'));
+      ratings[key] = ratings[key]===val ? null : val;
+      renderSummary();
+      renderPanel();
+    });
+  });
+}
+
+function goSection(sid) { currentSection=sid; renderNav(); renderPanel(); }
+
+function setRating(key, val) {
+  ratings[key] = ratings[key]===val ? null : val;
+  renderSummary(); renderPanel();
+}
+
+function saveRecord() {
+  const name = document.getElementById('staff-name').value.trim();
+  const date = document.getElementById('eval-date').value;
+  const evaluator = document.getElementById('evaluator').value.trim();
+  if(!name||!date) { alert('スタッフ名と日付を入力してください'); return; }
+  const {total, max, pct} = getStats();
+  if(pct===null) { alert('少なくとも1つ評価してください'); return; }
+  const rank = getRank(pct);
+  const record = { id:Date.now(), name, date, evaluator, total, max, pct, rank:rank.label, ratings:{...ratings} };
+  const list = getHistory();
+  list.unshift(record);
+  localStorage.setItem('poke_history', JSON.stringify(list));
+  alert('保存しました！');
+}
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('poke_history')||'[]'); } catch(e) { return []; }
+}
+
+function renderHistory() {
+  const list = getHistory();
+  const el = document.getElementById('history-list');
+  if(!list.length){ el.innerHTML='<div class="empty-msg">まだ保存された記録はありません。</div>'; return; }
+  el.innerHTML = list.map(r =>
+    '<div class="hist-item" data-id="'+r.id+'">'
+    +'<div><div class="hist-name">'+r.name+'　'+r.rank+'</div>'
+    +'<div class="hist-meta">'+r.date+'　評価者: '+(r.evaluator||'—')+'　スコア: '+r.pct+'%（'+r.total+'/'+r.max+'点）</div></div>'
+    +'<button class="hist-del" data-id="'+r.id+'">削除</button></div>'
+  ).join('');
+  el.querySelectorAll('.hist-item').forEach(function(item){
+    item.addEventListener('click', function(e){
+      if(e.target.classList.contains('hist-del')) return;
+      loadRecord(parseInt(this.getAttribute('data-id')));
+    });
+  });
+  el.querySelectorAll('.hist-del').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      deleteRecord(parseInt(this.getAttribute('data-id')));
+    });
+  });
+}
+
+function deleteRecord(id) {
+  if(!confirm('この記録を削除しますか？')) return;
+  const list = getHistory().filter(r=>r.id!==id);
+  localStorage.setItem('poke_history', JSON.stringify(list));
+  renderHistory();
+}
+
+function loadRecord(id) {
+  const r = getHistory().find(x=>x.id===id);
+  if(!r) return;
+  document.getElementById('staff-name').value = r.name;
+  document.getElementById('eval-date').value = r.date;
+  document.getElementById('evaluator').value = r.evaluator||'';
+  ratings = {...r.ratings};
+  showTab('check');
+  renderSummary(); renderNav(); renderPanel();
+}
+
+function resetAll() {
+  if(!confirm('現在の入力をすべてリセットしますか？')) return;
+  SECTIONS.forEach(s => s.items.forEach((_,i) => { ratings[s.id+'_'+i]=null; }));
+  document.getElementById('staff-name').value='';
+  document.getElementById('eval-date').value='';
+  document.getElementById('evaluator').value='';
+  renderSummary(); renderNav(); renderPanel();
+}
+
+function showTab(tab) {
+  document.getElementById('tab-check').style.display = tab==='check'?'':'none';
+  document.getElementById('tab-history').style.display = tab==='history'?'':'none';
+  document.getElementById('bnav-check').classList.toggle('active', tab==='check');
+  document.getElementById('bnav-history').classList.toggle('active', tab==='history');
+  if(tab==='history') renderHistory();
+  window.scrollTo(0,0);
+}
+
+document.getElementById('eval-date').value = new Date().toISOString().split('T')[0];
+renderSummary(); renderNav(); renderPanel();
+</script>
+</body>
+</html>
