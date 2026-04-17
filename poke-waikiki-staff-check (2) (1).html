@@ -24,123 +24,479 @@
     --check-mid: #d97706;
     --check-no: #dc2626;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 16px; }
 
-  /* ---- TOP BAR ---- */
-  .top-bar { background: var(--primary); padding: 0.85rem 1rem; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-  .top-bar .logo { font-size: 15px; font-weight: 700; color: #fff; }
-  .top-bar .logo span { color: #a7f3d0; }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-  /* ---- BOTTOM NAV ---- */
-  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--border); display: flex; z-index: 100; }
-  .bnav-btn { flex: 1; padding: 10px 4px 12px; border: none; background: none; font-family: inherit; font-size: 10px; color: var(--text-muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; transition: color 0.15s; }
-  .bnav-btn .icon { font-size: 20px; line-height: 1; }
-  .bnav-btn.active { color: var(--primary); font-weight: 700; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 16px;
+  }
 
-  .container { max-width: 600px; margin: 0 auto; padding: 1rem 0.85rem 5rem; }
+  .top-bar {
+    background: var(--primary);
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
 
-  /* ---- CARDS ---- */
-  .card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; }
+  .top-bar .logo {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
 
-  /* ---- INFO FIELDS ---- */
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .info-grid .field:last-child { grid-column: 1 / -1; }
-  .field label { font-size: 11px; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 5px; letter-spacing: 0.05em; }
-  .field input { width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 16px; font-family: inherit; color: var(--text); background: var(--bg); }
-  .field input:focus { outline: none; border-color: var(--primary-mid); background: var(--white); }
+  .top-bar .logo span {
+    color: #a7f3d0;
+  }
 
-  /* ---- SCORE CARD ---- */
-  .score-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%); border-radius: 12px; padding: 1rem; margin-bottom: 0.85rem; color: white; }
-  .score-top { display: flex; align-items: center; gap: 12px; margin-bottom: 0.75rem; }
-  .score-big { font-size: 44px; font-weight: 700; line-height: 1; }
-  .score-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
-  .rank-badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-left: auto; white-space: nowrap; }
-  .rank-diamond { background: var(--diamond-light); color: var(--diamond); }
-  .rank-platinum { background: var(--platinum-light); color: var(--platinum); }
-  .rank-gold { background: var(--gold-light); color: var(--gold); }
-  .rank-none { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
-  .legend { font-size: 11px; opacity: 0.75; margin-bottom: 8px; }
-  .section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; }
-  .sec-chip { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 7px 8px; }
-  .sec-chip-name { font-size: 10px; opacity: 0.8; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sec-chip-pct { font-size: 15px; font-weight: 700; }
-  .sec-bar { height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 4px; }
-  .sec-bar-fill { height: 100%; background: #a7f3d0; border-radius: 2px; transition: width 0.3s; }
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+  }
 
-  /* ---- SECTION NAV (horizontal scroll) ---- */
-  .nav-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; margin-bottom: 0.85rem; scrollbar-width: none; }
-  .nav-scroll::-webkit-scrollbar { display: none; }
-  .nav-btn { flex-shrink: 0; padding: 8px 14px; font-size: 13px; border: 1px solid var(--border); border-radius: 20px; background: var(--white); color: var(--text-muted); cursor: pointer; font-family: inherit; white-space: nowrap; }
-  .nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+  .bnav-btn {
+    flex: 1;
+    padding: 10px 4px 12px;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    transition: color 0.15s;
+  }
 
-  /* ---- SECTION PANEL ---- */
-  .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-  .section-title { font-size: 15px; font-weight: 700; color: var(--text); }
-  .section-pct { font-size: 13px; color: var(--text-muted); }
+  .bnav-btn .icon {
+    font-size: 20px;
+    line-height: 1;
+  }
 
-  /* ---- CHECK ITEMS ---- */
-  .item { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid #f3f4f6; }
-  .item:last-child { border-bottom: none; }
-  .item-text { flex: 1; font-size: 13px; line-height: 1.55; color: var(--text); }
-  .rating-group { display: flex; gap: 5px; flex-shrink: 0; }
-  .rb { width: 42px; height: 42px; border-radius: 10px; border: 1px solid var(--border); background: #f9fafb; font-size: 14px; font-weight: 700; cursor: pointer; color: var(--text-muted); font-family: inherit; display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
-  .rb.sel-2 { background: #d1fae5; color: var(--check-yes); border-color: #6ee7b7; }
-  .rb.sel-1 { background: #fef3c7; color: var(--check-mid); border-color: #fcd34d; }
-  .rb.sel-0 { background: #fee2e2; color: var(--check-no); border-color: #fca5a5; }
+  .bnav-btn.active {
+    color: var(--primary);
+    font-weight: 700;
+  }
 
-  /* ---- SAVE BUTTON ---- */
-  .btn-save { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; margin-top: 0.75rem; touch-action: manipulation; }
-  .btn-reset { width: 100%; padding: 12px; background: var(--white); color: var(--text-muted); border: 1px solid var(--border); border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 0.5rem; touch-action: manipulation; }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem 0.85rem 5rem;
+  }
 
-  /* ---- HISTORY ---- */
-  .hist-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-  .hist-name { font-size: 14px; font-weight: 500; color: var(--text); }
-  .hist-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-  .hist-del { font-size: 12px; color: var(--text-muted); padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: var(--bg); font-family: inherit; flex-shrink: 0; touch-action: manipulation; }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+  }
 
-  .empty-msg { font-size: 13px; color: var(--text-muted); text-align: center; padding: 2rem 0; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .info-grid .field:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .field label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: var(--primary-mid);
+    background: var(--white);
+  }
+
+  .score-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    color: white;
+  }
+
+  .score-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .score-big {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-sub {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 3px;
+  }
+
+  .rank-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .rank-diamond {
+    background: var(--diamond-light);
+    color: var(--diamond);
+  }
+
+  .rank-platinum {
+    background: var(--platinum-light);
+    color: var(--platinum);
+  }
+
+  .rank-gold {
+    background: var(--gold-light);
+    color: var(--gold);
+  }
+
+  .rank-none {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+  }
+
+  .legend {
+    font-size: 11px;
+    opacity: 0.75;
+    margin-bottom: 8px;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
+  }
+
+  .sec-chip {
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 7px 8px;
+  }
+
+  .sec-chip-name {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sec-chip-pct {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .sec-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  .sec-bar-fill {
+    height: 100%;
+    background: #a7f3d0;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .nav-scroll {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-bottom: 0.85rem;
+    scrollbar-width: none;
+  }
+
+  .nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .nav-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .section-pct {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .item:last-child {
+    border-bottom: none;
+  }
+
+  .item-text {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .rating-group {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .rb {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #f9fafb;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  .rb.sel-2 {
+    background: #d1fae5;
+    color: var(--check-yes);
+    border-color: #6ee7b7;
+  }
+
+  .rb.sel-1 {
+    background: #fef3c7;
+    color: var(--check-mid);
+    border-color: #fcd34d;
+  }
+
+  .rb.sel-0 {
+    background: #fee2e2;
+    color: var(--check-no);
+    border-color: #fca5a5;
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 0.75rem;
+    touch-action: manipulation;
+  }
+
+  .btn-reset {
+    width: 100%;
+    padding: 12px;
+    background: var(--white);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 0.5rem;
+    touch-action: manipulation;
+  }
+
+  .hist-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .hist-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .hist-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .hist-del {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--bg);
+    font-family: inherit;
+    flex-shrink: 0;
+    touch-action: manipulation;
+  }
+
+  .empty-msg {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .intro-card {
+    line-height: 1.8;
+  }
+
+  .accordion {
+    margin-bottom: 10px;
+  }
+
+  .acc-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .acc-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 0 12px;
+  }
+
+  .acc-content.open {
+    padding: 10px 12px;
+  }
+
+  .acc-content p,
+  .acc-content li {
+    font-size: 13px;
+    margin: 8px 0;
+    color: var(--text);
+  }
+
+  .intro-list {
+    padding-left: 1.2rem;
+    margin: 0;
+  }
 
   @media print {
-    .top-bar, .bottom-nav, .nav-scroll, .btn-save, .btn-reset { display: none !important; }
-    .container { padding-bottom: 1rem; }
-    .score-card { background: #1a6b4a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .top-bar, .bottom-nav, .nav-scroll, .btn-save, .btn-reset {
+      display: none !important;
+    }
+
+    .container {
+      padding-bottom: 1rem;
+    }
+
+    .score-card {
+      background: #1a6b4a !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
   }
-  .intro-card {
-  line-height: 1.8;
-}
-
-.intro-block {
-  margin-bottom: 1.25rem;
-}
-
-.intro-block:last-child {
-  margin-bottom: 0;
-}
-
-.intro-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-}
-
-.intro-card p {
-  font-size: 14px;
-  color: var(--text);
-  margin-bottom: 0.7rem;
-}
-
-.intro-list {
-  padding-left: 1.2rem;
-  margin: 0;
-}
-
-.intro-list li {
-  font-size: 14px;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-}
 </style>
 </head>
 <body>
@@ -151,7 +507,6 @@
 
 <div class="container">
 
-  <!-- CHECK TAB -->
   <div id="tab-check">
     <div class="card">
       <div class="info-grid">
@@ -160,51 +515,60 @@
         <div class="field"><label>評価者</label><input id="evaluator" placeholder="評価者名"></div>
       </div>
     </div>
+
     <div class="card intro-card">
-  <div class="intro-block">
-    <div class="intro-title">💕まず初めに</div>
-    <p>
-      このチェックシートは、皆が毎回働いている時に、意識を持って行動することが全てだということを伝えるために作りました。もちろん忘れること、間違えることもあるでしょう。しかし、毎日仕事に入る際にそれぞれ意識をして働いていけば、自ずとできるようになります。意識をして行動しましょう。
-    </p>
-    <p>
-      注意※ だれだれはしていないよね、私はしているけど、などと思うことは少し違います。そのようなことを問いたいわけではありませんので誤解のないようにお願いします。毎回継続できるよう皆で協力して、毎日意識をして、取り組んでいきましょう。
-    </p>
-  </div>
 
-  <div class="intro-block">
-    <div class="intro-title">働く前に必ず守る基本事項 9点</div>
-    <ol class="intro-list">
-      <li>スローガン『温かいものは温かいうちに　冷たいものは冷たいうちに』</li>
-      <li>うそをつかない。仕事にうそをつかない（さぼらない）</li>
-      <li>会社の（お店の）ものをもっていかない</li>
-      <li>携帯電話は緊急時のみ、責任者に伝えて使用すること</li>
-      <li>トイレは必ず一言伝えてから行くこと</li>
-      <li>お客様が看板を見ていたらすぐに声をかけること</li>
-      <li>ドリンクはルールを守ること</li>
-      <li>遅刻をしないこと</li>
-      <li>まかないは、ひとり1ボール。普通のものと同じ量</li>
-    </ol>
-  </div>
+      <div class="accordion">
+        <button class="acc-btn">💕 最初に読む</button>
+        <div class="acc-content">
+          <p>
+            このチェックシートは、皆が毎回働いている時に、意識を持って行動することが全てだということを伝えるために作りました。もちろん忘れること、間違えることもあるでしょう。しかし、毎日仕事に入る際にそれぞれ意識をして働いていけば、自ずとできるようになります。意識をして行動しましょう。
+          </p>
+          <p>
+            注意※ だれだれはしていないよね、私はしているけど、などと思うことは少し違います。そのようなことを問いたいわけではありませんので誤解のないようにお願いします。毎回継続できるよう皆で協力して、毎日意識をして、取り組んでいきましょう。
+          </p>
+        </div>
+      </div>
 
-  <div class="intro-block">
-    <div class="intro-title">本題</div>
-    <p>
-      私たちのこのフードコートビジネスにとって、フロントの冷蔵機の中を美しく、綺麗に見せることは最も重要です。いわば心臓の部分。フロントが汚ければ、買いたい気持ちが減少します。
-    </p>
-    <p>
-      フロントガラスは、朝と夕方は必ず拭き、野菜や魚も常においしそうに見えるように、モリモリに盛り付けてください。冷蔵機の内側も常に綺麗に保ちましょう。
-    </p>
-    <p>
-      ★お客様ファースト！ 売らないと儲からない、基本です。皆で声を掛け合って、営業がスムースに動くように協力してください。
-    </p>
-    <p>
-      ★食中毒！ 生ものを扱うため、手洗い、手袋交換、衛生管理を徹底してください。食中毒が出たら、お店も会社もなくなります。
-    </p>
-    <p>
-      以下チェック項目にチェックを入れ、毎月渡しますので確認をお願いします。できてること、できてないこと、知らないことなどあると思いますが、把握できるようにしましょう！
-    </p>
-  </div>
-</div>
+      <div class="accordion">
+        <button class="acc-btn">⚠ 基本事項 9点</button>
+        <div class="acc-content">
+          <ol class="intro-list">
+            <li>スローガン『温かいものは温かいうちに　冷たいものは冷たいうちに』</li>
+            <li>うそをつかない。仕事にうそをつかない（さぼらない）</li>
+            <li>会社の（お店の）ものをもっていかない</li>
+            <li>携帯電話は緊急時のみ、責任者に伝えて使用すること</li>
+            <li>トイレは必ず一言伝えてから行くこと</li>
+            <li>お客様が看板を見ていたらすぐに声をかけること</li>
+            <li>ドリンクはルールを守ること</li>
+            <li>遅刻をしないこと</li>
+            <li>まかないは、ひとり1ボール。普通のものと同じ量</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="acc-btn">🔥 本題</button>
+        <div class="acc-content">
+          <p>
+            私たちのこのフードコートビジネスにとって、フロントの冷蔵機の中を美しく、綺麗に見せることは最も重要です。いわば心臓の部分。フロントが汚ければ、買いたい気持ちが減少します。
+          </p>
+          <p>
+            フロントガラスは、朝と夕方は必ず拭き、野菜や魚も常においしそうに見えるように、モリモリに盛り付けてください。冷蔵機の内側も常に綺麗に保ちましょう。
+          </p>
+          <p>
+            ★お客様ファースト！ 売らないと儲からない、基本です。皆で声を掛け合って、営業がスムースに動くように協力してください。
+          </p>
+          <p>
+            ★食中毒！ 生ものを扱うため、手洗い、手袋交換、衛生管理を徹底してください。食中毒が出たら、お店も会社もなくなります。
+          </p>
+          <p>
+            以下チェック項目にチェックを入れ、毎月渡しますので確認をお願いします。できてること、できてないこと、知らないことなどあると思いますが、把握できるようにしましょう！
+          </p>
+        </div>
+      </div>
+
+    </div>
 
     <div class="score-card">
       <div class="score-top">
@@ -225,7 +589,6 @@
     <button class="btn-reset" onclick="resetAll()">リセット</button>
   </div>
 
-  <!-- HISTORY TAB -->
   <div id="tab-history" style="display:none;">
     <div class="card">
       <div style="font-size:15px; font-weight:700; margin-bottom:1rem; color:var(--text);">保存済み履歴</div>
@@ -235,7 +598,6 @@
 
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="bnav-btn active" id="bnav-check" onclick="showTab('check')">
     <span class="icon">☑️</span>チェック
@@ -296,7 +658,7 @@ const SECTIONS = [
     "野菜たちを2缶ともふわふわにセットできる"
   ]},
   { id:"poke", name:"POKE作り・盛り付け", items:[
-    "最後にソースかけるから汚くてもいいや、の考えはやめてください。いつも綺麗に！を意識！お客様もあなたの盛り付けを見ていますの意味合いを理解している。
+    "最後にソースかけるから汚くてもいいや、の考えはやめてください。いつも綺麗に！を意識！お客様もあなたの盛り付けを見ていますの意味合いを理解している",
     "ライスを平らに押しつぶしすぎないように平たくすることができる",
     "適量のポン酢ソースをかけることができる",
     "セサミシードを全体的に適量かけることができる",
@@ -424,48 +786,65 @@ const SECTIONS = [
 let ratings = {};
 let currentSection = SECTIONS[0].id;
 
-SECTIONS.forEach(s => s.items.forEach((_, i) => { ratings[s.id+'_'+i] = null; }));
+SECTIONS.forEach(s => s.items.forEach((_, i) => {
+  ratings[s.id + '_' + i] = null;
+}));
 
 function getStats() {
-  let total=0, max=0;
-  SECTIONS.forEach(s => s.items.forEach((_,i) => {
-    const v = ratings[s.id+'_'+i];
-    if(v!==null){ total+=v; max+=2; }
+  let total = 0;
+  let max = 0;
+  SECTIONS.forEach(s => s.items.forEach((_, i) => {
+    const v = ratings[s.id + '_' + i];
+    if (v !== null) {
+      total += v;
+      max += 2;
+    }
   }));
-  return { total, max, pct: max>0 ? Math.round(total/max*100) : null };
+  return { total, max, pct: max > 0 ? Math.round(total / max * 100) : null };
 }
 
 function getSectionStats(sid) {
-  const s = SECTIONS.find(x=>x.id===sid);
-  let total=0, max=0;
-  s.items.forEach((_,i) => {
-    const v = ratings[sid+'_'+i];
-    if(v!==null){ total+=v; max+=2; }
+  const s = SECTIONS.find(x => x.id === sid);
+  let total = 0;
+  let max = 0;
+  s.items.forEach((_, i) => {
+    const v = ratings[sid + '_' + i];
+    if (v !== null) {
+      total += v;
+      max += 2;
+    }
   });
-  return { total, max, pct: max>0 ? Math.round(total/max*100) : null };
+  return { total, max, pct: max > 0 ? Math.round(total / max * 100) : null };
 }
 
 function getRank(pct) {
-  if(pct>=95) return {label:"💎 ダイヤモンド", cls:"rank-diamond"};
-  if(pct>=85) return {label:"🥈 プラチナ", cls:"rank-platinum"};
-  if(pct>=75) return {label:"🥇 ゴールド", cls:"rank-gold"};
-  return {label:"ランクなし", cls:"rank-none"};
+  if (pct >= 95) return { label:"💎 ダイヤモンド", cls:"rank-diamond" };
+  if (pct >= 85) return { label:"🥈 プラチナ", cls:"rank-platinum" };
+  if (pct >= 75) return { label:"🥇 ゴールド", cls:"rank-gold" };
+  return { label:"ランクなし", cls:"rank-none" };
 }
 
 function renderSummary() {
-  const {total, max, pct} = getStats();
-  document.getElementById('total-pct').textContent = pct!==null ? pct+'%' : '—';
-  document.getElementById('score-detail').textContent = pct!==null ? total+' / '+max+'点' : 'まだ評価がありません';
+  const { total, max, pct } = getStats();
+  document.getElementById('total-pct').textContent = pct !== null ? pct + '%' : '—';
+  document.getElementById('score-detail').textContent = pct !== null ? total + ' / ' + max + '点' : 'まだ評価がありません';
+
   const rb = document.getElementById('rank-badge');
-  if(pct!==null) { const r=getRank(pct); rb.textContent=r.label; rb.className='rank-badge '+r.cls; }
-  else { rb.textContent='ランクなし'; rb.className='rank-badge rank-none'; }
+  if (pct !== null) {
+    const r = getRank(pct);
+    rb.textContent = r.label;
+    rb.className = 'rank-badge ' + r.cls;
+  } else {
+    rb.textContent = 'ランクなし';
+    rb.className = 'rank-badge rank-none';
+  }
 
   document.getElementById('section-scores').innerHTML = SECTIONS.map(s => {
     const st = getSectionStats(s.id);
-    const p = st.pct!==null ? st.pct : 0;
+    const p = st.pct !== null ? st.pct : 0;
     return `<div class="sec-chip">
       <div class="sec-chip-name">${s.name}</div>
-      <div class="sec-chip-pct">${st.pct!==null ? st.pct+'%' : '—'}</div>
+      <div class="sec-chip-pct">${st.pct !== null ? st.pct + '%' : '—'}</div>
       <div class="sec-bar"><div class="sec-bar-fill" style="width:${p}%"></div></div>
     </div>`;
   }).join('');
@@ -473,55 +852,81 @@ function renderSummary() {
 
 function renderNav() {
   document.getElementById('section-nav').innerHTML = SECTIONS.map(s =>
-    '<button class="nav-btn'+(s.id===currentSection?' active':'')+'" data-sid="'+s.id+'">'+s.name+'</button>'
+    '<button class="nav-btn' + (s.id === currentSection ? ' active' : '') + '" data-sid="' + s.id + '">' + s.name + '</button>'
   ).join('');
-  document.getElementById('section-nav').querySelectorAll('.nav-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){ goSection(this.getAttribute('data-sid')); });
+
+  document.getElementById('section-nav').querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      goSection(this.getAttribute('data-sid'));
+    });
   });
 }
 
 function renderPanel() {
-  const s = SECTIONS.find(x=>x.id===currentSection);
+  const s = SECTIONS.find(x => x.id === currentSection);
   const st = getSectionStats(currentSection);
-  let html = '<div class="section-header"><div class="section-title">'+s.name+'</div><div class="section-pct">'+(st.pct!==null ? st.pct+'%('+st.total+'/'+st.max+'pt)' : '未評価')+'</div></div>';
+
+  let html = '<div class="section-header"><div class="section-title">' + s.name + '</div><div class="section-pct">' + (st.pct !== null ? st.pct + '%(' + st.total + '/' + st.max + 'pt)' : '未評価') + '</div></div>';
+
   s.items.forEach(function(item, i) {
-    const key = currentSection+'_'+i;
+    const key = currentSection + '_' + i;
     const v = ratings[key];
-    html += '<div class="item"><div class="item-text">'+item+'</div><div class="rating-group">'
-      + '<button class="rb'+(v===2?' sel-2':'')+'" data-key="'+key+'" data-val="2">◎</button>'
-      + '<button class="rb'+(v===1?' sel-1':'')+'" data-key="'+key+'" data-val="1">△</button>'
-      + '<button class="rb'+(v===0?' sel-0':'')+'" data-key="'+key+'" data-val="0">✕</button>'
+    html += '<div class="item"><div class="item-text">' + item + '</div><div class="rating-group">'
+      + '<button class="rb' + (v === 2 ? ' sel-2' : '') + '" data-key="' + key + '" data-val="2">◎</button>'
+      + '<button class="rb' + (v === 1 ? ' sel-1' : '') + '" data-key="' + key + '" data-val="1">△</button>'
+      + '<button class="rb' + (v === 0 ? ' sel-0' : '') + '" data-key="' + key + '" data-val="0">✕</button>'
       + '</div></div>';
   });
+
   const panel = document.getElementById('section-panel');
   panel.innerHTML = html;
+
   panel.querySelectorAll('.rb').forEach(function(btn) {
     btn.addEventListener('click', function() {
       const key = this.getAttribute('data-key');
       const val = parseInt(this.getAttribute('data-val'));
-      ratings[key] = ratings[key]===val ? null : val;
+      ratings[key] = ratings[key] === val ? null : val;
       renderSummary();
       renderPanel();
     });
   });
 }
 
-function goSection(sid) { currentSection=sid; renderNav(); renderPanel(); }
-
-function setRating(key, val) {
-  ratings[key] = ratings[key]===val ? null : val;
-  renderSummary(); renderPanel();
+function goSection(sid) {
+  currentSection = sid;
+  renderNav();
+  renderPanel();
 }
 
 function saveRecord() {
   const name = document.getElementById('staff-name').value.trim();
   const date = document.getElementById('eval-date').value;
   const evaluator = document.getElementById('evaluator').value.trim();
-  if(!name||!date) { alert('スタッフ名と日付を入力してください'); return; }
-  const {total, max, pct} = getStats();
-  if(pct===null) { alert('少なくとも1つ評価してください'); return; }
+
+  if (!name || !date) {
+    alert('スタッフ名と日付を入力してください');
+    return;
+  }
+
+  const { total, max, pct } = getStats();
+  if (pct === null) {
+    alert('少なくとも1つ評価してください');
+    return;
+  }
+
   const rank = getRank(pct);
-  const record = { id:Date.now(), name, date, evaluator, total, max, pct, rank:rank.label, ratings:{...ratings} };
+  const record = {
+    id: Date.now(),
+    name,
+    date,
+    evaluator,
+    total,
+    max,
+    pct,
+    rank: rank.label,
+    ratings: { ...ratings }
+  };
+
   const list = getHistory();
   list.unshift(record);
   localStorage.setItem('poke_history', JSON.stringify(list));
@@ -529,27 +934,38 @@ function saveRecord() {
 }
 
 function getHistory() {
-  try { return JSON.parse(localStorage.getItem('poke_history')||'[]'); } catch(e) { return []; }
+  try {
+    return JSON.parse(localStorage.getItem('poke_history') || '[]');
+  } catch(e) {
+    return [];
+  }
 }
 
 function renderHistory() {
   const list = getHistory();
   const el = document.getElementById('history-list');
-  if(!list.length){ el.innerHTML='<div class="empty-msg">まだ保存された記録はありません。</div>'; return; }
+
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-msg">まだ保存された記録はありません。</div>';
+    return;
+  }
+
   el.innerHTML = list.map(r =>
-    '<div class="hist-item" data-id="'+r.id+'">'
-    +'<div><div class="hist-name">'+r.name+'　'+r.rank+'</div>'
-    +'<div class="hist-meta">'+r.date+'　評価者: '+(r.evaluator||'—')+'　スコア: '+r.pct+'%（'+r.total+'/'+r.max+'点）</div></div>'
-    +'<button class="hist-del" data-id="'+r.id+'">削除</button></div>'
+    '<div class="hist-item" data-id="' + r.id + '">'
+    + '<div><div class="hist-name">' + r.name + '　' + r.rank + '</div>'
+    + '<div class="hist-meta">' + r.date + '　評価者: ' + (r.evaluator || '—') + '　スコア: ' + r.pct + '%（' + r.total + '/' + r.max + '点）</div></div>'
+    + '<button class="hist-del" data-id="' + r.id + '">削除</button></div>'
   ).join('');
-  el.querySelectorAll('.hist-item').forEach(function(item){
-    item.addEventListener('click', function(e){
-      if(e.target.classList.contains('hist-del')) return;
+
+  el.querySelectorAll('.hist-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (e.target.classList.contains('hist-del')) return;
       loadRecord(parseInt(this.getAttribute('data-id')));
     });
   });
-  el.querySelectorAll('.hist-del').forEach(function(btn){
-    btn.addEventListener('click', function(e){
+
+  el.querySelectorAll('.hist-del').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
       deleteRecord(parseInt(this.getAttribute('data-id')));
     });
@@ -557,43 +973,72 @@ function renderHistory() {
 }
 
 function deleteRecord(id) {
-  if(!confirm('この記録を削除しますか？')) return;
-  const list = getHistory().filter(r=>r.id!==id);
+  if (!confirm('この記録を削除しますか？')) return;
+  const list = getHistory().filter(r => r.id !== id);
   localStorage.setItem('poke_history', JSON.stringify(list));
   renderHistory();
 }
 
 function loadRecord(id) {
-  const r = getHistory().find(x=>x.id===id);
-  if(!r) return;
+  const r = getHistory().find(x => x.id === id);
+  if (!r) return;
+
   document.getElementById('staff-name').value = r.name;
   document.getElementById('eval-date').value = r.date;
-  document.getElementById('evaluator').value = r.evaluator||'';
-  ratings = {...r.ratings};
+  document.getElementById('evaluator').value = r.evaluator || '';
+  ratings = { ...r.ratings };
+
   showTab('check');
-  renderSummary(); renderNav(); renderPanel();
+  renderSummary();
+  renderNav();
+  renderPanel();
 }
 
 function resetAll() {
-  if(!confirm('現在の入力をすべてリセットしますか？')) return;
-  SECTIONS.forEach(s => s.items.forEach((_,i) => { ratings[s.id+'_'+i]=null; }));
-  document.getElementById('staff-name').value='';
-  document.getElementById('eval-date').value='';
-  document.getElementById('evaluator').value='';
-  renderSummary(); renderNav(); renderPanel();
+  if (!confirm('現在の入力をすべてリセットしますか？')) return;
+
+  SECTIONS.forEach(s => s.items.forEach((_, i) => {
+    ratings[s.id + '_' + i] = null;
+  }));
+
+  document.getElementById('staff-name').value = '';
+  document.getElementById('eval-date').value = '';
+  document.getElementById('evaluator').value = '';
+
+  renderSummary();
+  renderNav();
+  renderPanel();
 }
 
 function showTab(tab) {
-  document.getElementById('tab-check').style.display = tab==='check'?'':'none';
-  document.getElementById('tab-history').style.display = tab==='history'?'':'none';
-  document.getElementById('bnav-check').classList.toggle('active', tab==='check');
-  document.getElementById('bnav-history').classList.toggle('active', tab==='history');
-  if(tab==='history') renderHistory();
-  window.scrollTo(0,0);
+  document.getElementById('tab-check').style.display = tab === 'check' ? '' : 'none';
+  document.getElementById('tab-history').style.display = tab === 'history' ? '' : 'none';
+  document.getElementById('bnav-check').classList.toggle('active', tab === 'check');
+  document.getElementById('bnav-history').classList.toggle('active', tab === 'history');
+
+  if (tab === 'history') renderHistory();
+  window.scrollTo(0, 0);
 }
 
 document.getElementById('eval-date').value = new Date().toISOString().split('T')[0];
-renderSummary(); renderNav(); renderPanel();
+
+renderSummary();
+renderNav();
+renderPanel();
+
+document.querySelectorAll('.acc-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+      content.classList.remove('open');
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.classList.add('open');
+    }
+  });
+});
 </script>
 </body>
 </html>
