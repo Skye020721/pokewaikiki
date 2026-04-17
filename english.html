@@ -949,7 +949,28 @@ function saveRecord() {
   const list = getHistory();
   list.unshift(record);
   localStorage.setItem('poke_history_en', JSON.stringify(list));
-  alert('Saved.');
+
+  fetch('https://script.google.com/macros/s/AKfycbz-iUxTAq9WtcX6PvizcQ3KoWOfVcHOo2kdRXuSE3Ni9IzG5sYqk6ytSYalKmwPF0w_Vw/exec', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify({
+      date: date,
+      name: name,
+      evaluator: evaluator,
+      score: pct + '%',
+      rank: rank.label
+    })
+  })
+  .then(() => {
+    alert('Saved to history and Google Sheets.');
+    renderHistory();
+  })
+  .catch((error) => {
+    console.error(error);
+    alert('Saved to history, but Google Sheets sync failed. Please check the Apps Script settings.');
+  });
 }
 
 function getHistory() {
