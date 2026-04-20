@@ -931,7 +931,23 @@ function saveRecord() {
   const list = getHistory();
   list.unshift(record);
   localStorage.setItem('poke_history', JSON.stringify(list));
-  alert('Saved!');
+
+  fetch("https://script.google.com/macros/s/AKfycbz-iUxTAq9WtcX6PvizcQ3KoWOfVcHOo2kdRXuSE3Ni9IzG5sYqk6ytSYalKmwPF0w_Vw/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify({
+      date: date,
+      name: name,
+      evaluator: evaluator,
+      score: pct + "%",
+      rank: rank.label
+    })
+  });
+
+  alert("Saved!");
 }
 
 function getHistory() {
