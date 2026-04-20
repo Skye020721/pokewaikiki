@@ -4,10 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Poke Waikiki Staff Checklist</title>
+
 <style>
-body { font-family: Arial; padding:20px; background:#f5f5f5;}
-.card {background:white; padding:15px; margin-bottom:10px; border-radius:10px;}
-button {padding:10px; margin-top:10px;}
+body {
+  font-family: Arial;
+  background:#f5f5f5;
+  padding:20px;
+}
+.card {
+  background:white;
+  padding:15px;
+  margin-bottom:10px;
+  border-radius:10px;
+}
+input {
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+}
+button {
+  padding:12px;
+  width:100%;
+  background:#1a6b4a;
+  color:white;
+  border:none;
+  border-radius:8px;
+  margin-top:10px;
+}
 </style>
 </head>
 
@@ -16,25 +39,36 @@ button {padding:10px; margin-top:10px;}
 <h2>🌺 Poke Waikiki Staff Checklist</h2>
 
 <div class="card">
-<label>Staff Name</label><br>
-<input id="staff-name"><br><br>
+<label>Staff Name</label>
+<input id="staff-name">
 
-<label>Date</label><br>
-<input id="eval-date" type="date"><br><br>
+<label>Date</label>
+<input id="eval-date" type="date">
 
-<label>Evaluator</label><br>
-<input id="evaluator"><br>
+<label>Evaluator</label>
+<input id="evaluator">
 </div>
 
 <div class="card">
+
 <h3>💕 Read First</h3>
-<p>This checklist helps staff stay mindful every day.</p>
+<p>
+This checklist helps everyone stay mindful while working.
+Mistakes happen, but awareness leads to improvement.
+</p>
 
 <h3>⚠ Basic Rules</h3>
-<p>Follow rules, be honest, respect hygiene.</p>
+<p>
+Be honest, follow hygiene rules, respect teamwork, and stay professional.
+</p>
 
 <h3>🔥 Main Focus</h3>
-<p>Keep the front clean and attractive. Customer first.</p>
+<p>
+Keep the front clean and attractive.
+Customer first.
+Clean display increases sales.
+</p>
+
 </div>
 
 <div class="card">
@@ -49,21 +83,31 @@ const name = document.getElementById('staff-name').value;
 const date = document.getElementById('eval-date').value;
 const evaluator = document.getElementById('evaluator').value;
 
+if(!name || !date){
+  alert("Please enter name and date");
+  return;
+}
+
 fetch("https://script.google.com/macros/s/AKfycbz-iUxTAq9WtcX6PvizcQ3KoWOfVcHOo2kdRXuSE3Ni9IzG5sYqk6ytSYalKmwPF0w_Vw/exec",{
 method:"POST",
 mode:"no-cors",
-headers:{"Content-Type":"text/plain;charset=utf-8"},
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
 body:JSON.stringify({
 date:date,
 name:name,
 evaluator:evaluator,
-score:"test",
-rank:"test"
+score:"OK",
+rank:"OK"
 })
 });
 
 alert("Saved!");
+
 }
+
+document.getElementById('eval-date').value = new Date().toISOString().split('T')[0];
 
 </script>
 
