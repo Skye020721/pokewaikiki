@@ -1,69 +1,1063 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poke Waikiki Staff Checklist</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-      color: #222;
-    }
-    .card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0 14px;
-      box-sizing: border-box;
-    }
-    h2, h3 {
-      margin-top: 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poke Waikiki Staff Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a6b4a;
+    --primary-mid: #2d9469;
+    --diamond: #3b82f6;
+    --diamond-light: #eff6ff;
+    --platinum: #7c3aed;
+    --platinum-light: #f5f3ff;
+    --gold: #d97706;
+    --gold-light: #fffbeb;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #f8faf9;
+    --white: #ffffff;
+    --check-yes: #059669;
+    --check-mid: #d97706;
+    --check-no: #dc2626;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 16px;
+  }
+
+  .top-bar {
+    background: var(--primary);
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .top-bar .logo {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .top-bar .logo span {
+    color: #a7f3d0;
+  }
+
+  .lang-switch {
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .lang-switch a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 8px;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 100;
+  }
+
+  .bnav-btn {
+    flex: 1;
+    padding: 10px 4px 12px;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    transition: color 0.15s;
+  }
+
+  .bnav-btn .icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .bnav-btn.active {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem 0.85rem 5rem;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .info-grid .field:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .field label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  .field input:focus {
+    outline: none;
+    border-color: var(--primary-mid);
+    background: var(--white);
+  }
+
+  .score-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.85rem;
+    color: white;
+  }
+
+  .score-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.75rem;
+  }
+
+  .score-big {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .score-sub {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 3px;
+  }
+
+  .rank-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .rank-diamond {
+    background: var(--diamond-light);
+    color: var(--diamond);
+  }
+
+  .rank-platinum {
+    background: var(--platinum-light);
+    color: var(--platinum);
+  }
+
+  .rank-gold {
+    background: var(--gold-light);
+    color: var(--gold);
+  }
+
+  .rank-none {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+  }
+
+  .legend {
+    font-size: 11px;
+    opacity: 0.75;
+    margin-bottom: 8px;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
+  }
+
+  .sec-chip {
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 7px 8px;
+  }
+
+  .sec-chip-name {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .sec-chip-pct {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .sec-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  .sec-bar-fill {
+    height: 100%;
+    background: #a7f3d0;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .nav-scroll {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-bottom: 0.85rem;
+    scrollbar-width: none;
+  }
+
+  .nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+
+  .nav-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .section-pct {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .item:last-child {
+    border-bottom: none;
+  }
+
+  .item-text {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  .rating-group {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .rb {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #f9fafb;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  .rb.sel-2 {
+    background: #d1fae5;
+    color: var(--check-yes);
+    border-color: #6ee7b7;
+  }
+
+  .rb.sel-1 {
+    background: #fef3c7;
+    color: var(--check-mid);
+    border-color: #fcd34d;
+  }
+
+  .rb.sel-0 {
+    background: #fee2e2;
+    color: var(--check-no);
+    border-color: #fca5a5;
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 0.75rem;
+    touch-action: manipulation;
+  }
+
+  .btn-reset {
+    width: 100%;
+    padding: 12px;
+    background: var(--white);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 0.5rem;
+    touch-action: manipulation;
+  }
+
+  .hist-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .hist-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .hist-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  .hist-del {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--bg);
+    font-family: inherit;
+    flex-shrink: 0;
+    touch-action: manipulation;
+  }
+
+  .empty-msg {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .intro-card {
+    line-height: 1.8;
+  }
+
+  .accordion {
+    margin-bottom: 10px;
+  }
+
+  .acc-btn {
+    width: 100%;
+    text-align: left;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .acc-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 0 12px;
+  }
+
+  .acc-content.open {
+    padding: 10px 12px;
+  }
+
+  .acc-content p,
+  .acc-content li {
+    font-size: 13px;
+    margin: 8px 0;
+    color: var(--text);
+  }
+
+  .intro-list {
+    padding-left: 1.2rem;
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-  <h2>🌺 Poke Waikiki Staff Checklist</h2>
 
-  <div class="card">
-    <label>Staff Name</label>
-    <input id="staff-name" />
+<div class="top-bar">
+  <div class="logo">🌺 Poke Waikiki <span>Staff Checklist</span></div>
+  <div class="lang-switch"><a href="./index.html">日本語</a> <a href="./english.html">English</a></div>
+</div>
 
-    <label>Date</label>
-    <input id="eval-date" type="date" />
+<div class="container">
 
-    <label>Evaluator</label>
-    <input id="evaluator" />
+  <div id="tab-check">
+    <div class="card">
+      <div class="info-grid">
+        <div class="field"><label>Staff Name</label><input id="staff-name" placeholder="Enter name"></div>
+        <div class="field"><label>Date</label><input id="eval-date" type="date"></div>
+        <div class="field"><label>Evaluator</label><input id="evaluator" placeholder="Evaluator name"></div>
+      </div>
+    </div>
+
+    <div class="card intro-card">
+
+      <div class="accordion">
+        <button class="acc-btn">💕 Read First</button>
+        <div class="acc-content">
+          <p>
+            This checklist was created to remind everyone that the most important thing is to stay mindful while working every time. Of course, people may forget things or make mistakes. But if each person works with awareness every day, it will naturally become a habit. Please stay mindful and take action with intention.
+          </p>
+          <p>
+            Note: This is not about thinking, “That person is not doing it, but I am,” or comparing yourself to others. That is not the purpose of this checklist. Please do not misunderstand its intent. Let’s help each other, stay aware every day, and work together so we can do these things consistently every time.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="acc-btn">⚠ Basic Rules: 9 Points</button>
+        <div class="acc-content">
+          <ol class="intro-list">
+            <li>Slogan: “Serve hot food while it is hot, and cold food while it is cold.” Example: During an idle time around 3 or 4 PM, there are no customers, and chicken has been sitting out at the front for more than 40 minutes. You may think, “It’s a little cold and hard, but it’s probably okay,” and serve it anyway. Please think about that. If a customer waits 5 more minutes, they could receive a very fresh and delicious poke bowl. If there is a backup item prepared 20 minutes earlier in the back, serving the one from the front may still taste okay, but compared to our best poke bowl, the quality drops significantly. Please pay attention to business conditions and always stay aware so that we can serve delicious poke bowls. Let’s raise our awareness of serving tasty food quickly and carefully.</li>
+            <li>Do not lie. Do not lie about your work. Do not slack off. Always look for something to do. If you are not sure what to do, ask the person in charge. Looking at your phone because it is slow, or talking for a long time without working, is strictly prohibited.</li>
+            <li>Do not take company property from the store. This should be obvious, but please clearly separate company property from your own belongings. If someone takes something home without permission, regardless of how big or small it is, we will first contact the police and treat it as theft. There will be no exceptions. Wrong is wrong.</li>
+            <li>Cell phones may only be used in emergencies, and only after informing the manager or person in charge.</li>
+            <li>Always tell someone before going to the restroom. Also, if restroom breaks frequently take 15, 20, or 30 minutes, inappropriate use may become subject to warning. Use the second-floor restroom. If it is crowded, use the first- or fourth-floor restroom. Please remove your uniform before using the restroom. When you return to the store, washing your hands again is mandatory.</li>
+            <li>If a customer is looking at the sign or menu board, speak to them immediately. If you are busy working in the kitchen, always stay aware of the front. If someone is looking at the menu, go to the front right away, say hello, and explain things such as the bowl sizes. Important: Please do not decide on your own that “they are just looking, so it’s fine.” That is not okay. Go to the front first. Having a staff member at the front is basic restaurant common sense. Normally, having nobody there is not acceptable. With only two staff members, there will be times when both people are working inside, but please respond flexibly. Always stay aware of the front.</li>
+            <li>Follow the drink rules. The company provides one bottle of water per person, or two bottles if you work both lunch and dinner. However, please do not drink the large water bottles. Other drinks and juices must be purchased at the staff price.</li>
+            <li>Do not be late. It is basic common sense that by the time your shift starts, you should already be in uniform, have washed your hands, and clocked in. Regularly arriving late makes it difficult to work here and causes people to lose trust in you. Please be on time. If you are going to be late, contact us.</li>
+            <li>Staff meal is one bowl per person, and the portion should be the same as a regular bowl. If someone is taking more than that, please report it. If something was made by mistake, remove the protein properly in the kitchen and use it later if possible. It is best to eat it as staff meal, but please ask first.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <button class="acc-btn">🔥 Main Focus</button>
+        <div class="acc-content">
+          <p>
+            For our food court business, keeping the inside of the front refrigerator beautiful and clean is one of the most important things. It is the heart of the store. If the front area looks dirty, customers will feel less interested in buying.
+          </p>
+          <p>
+            The front glass must always be wiped in the morning and evening, and the vegetables and fish should always look fresh and abundant. Please also keep the inside of the refrigerator clean at all times.
+          </p>
+          <p>
+            ★ Customer first. We cannot make money if we do not sell. That is the basic principle. Please communicate with each other and work together so operations run smoothly.
+          </p>
+          <p>
+            ★ Food poisoning. Because we handle raw products, please strictly follow handwashing, glove changes, and sanitation rules. If food poisoning happens, the store and the company could both be finished.
+          </p>
+          <p>
+            Please check each item below. This will be handed out every month, so please review it carefully. There will be things you can do, things you are not doing yet, and things you did not know. Let’s make sure we understand all of them clearly.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="score-card">
+      <div class="score-top">
+        <div>
+          <div class="score-big" id="total-pct">—</div>
+          <div class="score-sub" id="score-detail">No evaluation yet</div>
+        </div>
+        <div class="rank-badge rank-none" id="rank-badge">No Rank</div>
+      </div>
+      <div class="legend">◎ Can Do = 2 pts　△ Know but not doing = 1 pt　✕ Did not know = 0 pt</div>
+      <div class="section-grid" id="section-scores"></div>
+    </div>
+
+    <div class="nav-scroll" id="section-nav"></div>
+    <div class="card" id="section-panel"></div>
+
+    <button class="btn-save" onclick="saveRecord()">✓ Save Result</button>
+    <button class="btn-reset" onclick="resetAll()">Reset</button>
   </div>
 
-  <div class="card">
-    <h3>💕 Read First</h3>
-    <p>
-      This checklist was created to help everyone stay mindful while working.
-      Mistakes and forgetfulness can happen, but by staying aware every day,
-      each person will naturally improve.
-    </p>
-
-    <h3>⚠ Basic Rules</h3>
-    <p>
-      Be honest. Follow hygiene rules. Respect teamwork. Stay professional.
-      Always take care of customers first.
-    </p>
-
-    <h3>🔥 Main Focus</h3>
-    <p>
-      Keep the front display beautiful, clean, and fresh.
-      The front refrigerator is the heart of the store.
-      If it looks messy, customers are less likely to buy.
-    </p>
+  <div id="tab-history" style="display:none;">
+    <div class="card">
+      <div style="font-size:15px; font-weight:700; margin-bottom:1rem; color:var(--text);">Saved History</div>
+      <div id="history-list"><div class="empty-msg">No saved records yet.</div></div>
+    </div>
   </div>
+
+</div>
+
+<nav class="bottom-nav">
+  <button class="bnav-btn active" id="bnav-check" onclick="showTab('check')">
+    <span class="icon">☑️</span>Check
+  </button>
+  <button class="bnav-btn" id="bnav-history" onclick="showTab('history')">
+    <span class="icon">🕐</span>History
+  </button>
+</nav>
+
+<script>
+const SECTIONS = [
+  { id:"front", name:"Front Area", items:[
+    "Can wipe the entire front area and kitchen area with alcohol sanitizer",
+    "Can properly clean the front glass, the glass in front of the chicken, the glass in front of the chips, and the doors that are opened and closed using Windex",
+    "Can turn on the front refrigerator switch and check the temperature",
+    "If the towel is dirty, can rinse it clean in the sink in the back",
+    "Can wipe all tables and surfaces with alcohol sanitizer",
+    "Understands that it is important to keep the inside of the front refrigerator looking beautiful and clean",
+    "Understands and practices wiping the refrigerator glass with Windex in the morning and evening",
+    "Can keep the vegetables and fish looking full and fresh at all times",
+    "After refilling fish or changing vegetables, can make containers that are not being used right away still look naturally full and attractive",
+    "Can always keep the inside of the refrigerator clean",
+    "Can immediately speak to customers when they are looking at the menu sign",
+    "When there are only two staff members and nobody is at the front, can quickly go to the front and speak to customers when they are looking at the menu"
+  ]},
+  { id:"front-basic", name:"Front Basics", items:[
+    "Can wash hands properly",
+    "Can provide register service with a smile",
+    "Can greet people standing in front of the store and looking at the menu, such as saying Hello",
+    "Always speaks to people who are looking at the menu (Hi, welcome, Try Hawaii's best favorite!)",
+    "Can also keep eye contact with people waiting at the register or standing behind and say, 'I'll get your order soon.'",
+    "Can explain the bowl sizes and capacity to customers deciding in front of the store",
+    "When it looks like it will take time, can say things like 'I'll be right with you' or 'Give me one second'",
+    "Understands that there must always be one person at the front",
+    "Understands the reason for taking multiple orders first and then making them when only one person is operating the front",
+    "Understands why staff should not speak Japanese to each other in front of customers",
+    "If a customer makes a mistake or drops something, can immediately make a new one",
+    "Can pay attention to hygiene, including changing gloves and washing hands",
+    "Understands that phones should not be checked during work except when necessary",
+    "Always stays aware of hygiene, handwashing, and alcohol sanitizing",
+    "Can always respond with a smile",
+    "After making a bowl, can immediately reset the ingredients so they look full again",
+    "Can make the morning fish display look full and appealing from the start of the day",
+    "Can always refill toppings in the showcase",
+    "Can always wipe and organize the surrounding area",
+    "Can prioritize customers whenever they are choosing items at the front",
+    "If something falls to the floor and it must be picked up, can change gloves afterward"
+  ]},
+  { id:"fish-front", name:"Front Fish", items:[
+    "Can cleanly and thoroughly remove the fish sheet",
+    "Can check whether water has collected in the fish container and wipe it out when there are no customers",
+    "Can notice unusual color or condition and report it",
+    "When placing fish out, can carefully remove paper and day-of-week stickers so customers do not see them, and can fluff and arrange the fish properly"
+  ]},
+  { id:"veg-front", name:"Front Vegetables", items:[
+    "When changing vegetables, can remove the plastic wrap carefully to avoid contamination",
+    "If vegetables such as tomatoes seem to have too much liquid, can smartly discard the liquid into the sink on the right when there are no customers",
+    "Can set both vegetable containers so they look full and fresh"
+  ]},
+  { id:"poke", name:"POKE Making & Plating", items:[
+    "Understands that the idea of 'it's okay if it looks messy because sauce goes on last' is not acceptable; always keeps presentation clean because customers are watching",
+    "Can flatten rice without pressing it down too hard",
+    "Can add the proper amount of ponzu sauce",
+    "Can add the proper amount of sesame seeds evenly",
+    "Can add the proper amount of vegetables",
+    "When adding vegetables, can place them along the edges so white rice is visible in the center",
+    "Can scoop the proper amount of protein",
+    "Can mix thoroughly at least 15 times",
+    "Can add the proper amount of sauce: Small 5 times, Medium 7 times",
+    "Can place the main protein attractively in the center",
+    "For Ahi Salmon bowls, can spread the protein nicely when placing it",
+    "Can plate beautifully (not too much lettuce; protein should be the main focus)",
+    "For Medium bowls, can distribute ingredients well without piling too much only in the center",
+    "Understands the method for chicken bowls: make the shape first with chicken, then add fish",
+    "Understands the correct portion for tofu bowls (S 6-7, M 8-9)",
+    "Understands the correct portion for tofu + chicken bowls (S 4-5, M 5-6)",
+    "If the protein amount looks too small, can respond flexibly",
+    "Can call out the number loudly and press the number button",
+    "If the customer does not come right away, can put a lid on the bowl so dust does not get in",
+    "Can add the right amount of lettuce for salad bowls",
+    "Can plate avocado neatly according to store standards"
+  ]},
+  { id:"operation", name:"Operation", items:[
+    "Understands the meaning of customer first",
+    "Understands why one person must always stay in front",
+    "When the front starts getting busy, can immediately move to the front",
+    "Understands that the prep person should go out first",
+    "The person in charge of fish can loudly say, 'Please cover the front.'",
+    "If unable to go immediately, can communicate with each other clearly",
+    "Understands that when many customers arrive, everyone must gather at the front immediately",
+    "Understands that when multiple groups line up, it is better to take all orders first and then make them together",
+    "Can communicate during work by speaking up, such as 'Front please!' or 'Chicken is half left.'",
+    "When chicken is needed during a slow time, can immediately call out through the window, 'Chicken please.'"
+  ]},
+  { id:"idle", name:"Idle Time", items:[
+    "Can wipe refrigerator handles and glass for juices and other drinks",
+    "Can wipe around the chicken area, rice cooker area, and register",
+    "Can restock juice, on-the-side sauces, vegetables, rice, and other items"
+  ]},
+  { id:"chicken", name:"Chicken", items:[
+    "When placing chicken at the front, can arrange it neatly on the side where the light hits it",
+    "Can place the leaves underneath neatly from the customer's point of view",
+    "During idle times and similar periods, stays aware not to serve old or hardened chicken and instead serve fresh chicken",
+    "When it is slow, does not leave chicken at the front too long and has the awareness to keep it warm in the internal basket so better chicken can be served",
+    "If there will be a wait, can clearly explain it to the customer",
+    "Can cut all the way through the skin properly",
+    "Can fry chicken",
+    "Can decide when to fry chicken by understanding the customer situation",
+    "Can communicate with the team about when chicken is running out and how many pieces are needed",
+    "Can stand the fried chicken vertically in the basket so oil drains properly"
+  ]},
+  { id:"rice", name:"Rice", items:[
+    "Can cook rice",
+    "Can wash rice",
+    "Can turn off the keep-warm setting immediately after the rice is cooked",
+    "Can check the prep amount needed and wash the correct amount of rice",
+    "After the keep-warm setting is turned off and some time has passed, can lightly mix the rice",
+    "Can move the rice into bowls in halves",
+    "After moving rice into bowls, can cover with paper and plastic wrap and write the time",
+    "Can replace the rice when the previous batch runs out",
+    "Can mix the rice after letting it steam for about 15 minutes after cooking",
+    "Can remove and discard the water from behind the rice cooker every day",
+    "Can clean the edges of the rice cooker",
+    "Can regularly check the smell and moisture of the morning rice"
+  ]},
+  { id:"wash", name:"Washing", items:[
+    "Can wash thoroughly",
+    "Knows how to wash the black fish trays properly, including the corners and outer edges",
+    "Can remove dirt from inside scoopers and make sure no residue remains",
+    "After washing scoopers or fryer nets, can check that no metal pieces or brush hairs are attached",
+    "Can properly place dirty dishes brought from the front into hot water",
+    "After taking items out of sanitizer, can place them in a way that drains water properly and allows them to dry",
+    "Can return dry items to their correct locations",
+    "Can move sink containers and clean behind them thoroughly",
+    "Can wash the back-left sink with a brush every day"
+  ]},
+  { id:"clean", name:"Cleaning", items:[
+    "When there is free time, can wipe and sanitize in front of the cashier, around the chicken area, and around the refrigerator",
+    "When there is free time, can wipe the shelf under the chicken table clean",
+    "Can clean the sinks and the very back sink every day",
+    "Can wipe the front refrigerator clean in the morning and evening",
+    "Can wipe the refrigerator doors clean",
+    "Can clean the hand wash sink",
+    "After using a table, can clean the area used",
+    "Can clean the floor"
+  ]},
+  { id:"other", name:"Other", items:[
+    "Can clock in and clock out at the front register",
+    "Does not throw used paper towels into the trash from a distance",
+    "Does not speak Japanese in front of customers",
+    "Does not talk loudly about unrelated topics in front of customers",
+    "Does not speak badly about others",
+    "Can work while respecting different values and perspectives",
+    "Can prepare shredded nori in the proper size without crushing it too much",
+    "Understands that staff meal is one bowl per person and the same portion as a regular bowl",
+    "Knows that drinks can be purchased for $1 each",
+    "Knows that one bottle of water per person is allowed",
+    "Can put raw items back into the refrigerator immediately",
+    "Drinks beverages facing away from the front, either at the side or in the kitchen",
+    "Can throw away trash from front cleaning into the kitchen trash can",
+    "When delivery arrives, can sign and place the invoice into the envelope",
+    "Can report when the last stock of forks, napkins, or similar items is used"
+  ]},
+  { id:"fish-prep", name:"Fish Prep", items:[
+    "After delivery arrives, can immediately store items in the refrigerator",
+    "While cutting fish, if leaving it out for a long time, can manage sanitation by wrapping it and returning it to the refrigerator",
+    "Can check whether the black tray is clean before using it",
+    "Can cut fish into the right size, not too large and not too small"
+  ]},
+  { id:"prep", name:"Prep", items:[
+    "Can cut lettuce to the right size, not too small and not too large",
+    "Can complete the front setup before the 10:00 opening time",
+    "Can wipe the front glass before the 10:00 opening time or first thing in the day",
+    "Can set the fan under the refrigerator facing outward",
+    "Can complete each prep task",
+    "Knows how to wash rice and can do it",
+    "Can calculate how much rice needs to be prepared and wash the correct amount",
+    "Can thoroughly clean the table after using it",
+    "Can work together with others to move prep forward",
+    "Can cut avocado neatly according to standards and place it into containers",
+    "Can prep potatoes",
+    "Can do prep while watching the front and prioritizing customers"
+  ]}
+];
+
+let ratings = {};
+let currentSection = SECTIONS[0].id;
+
+SECTIONS.forEach(s => s.items.forEach((_, i) => {
+  ratings[s.id + '_' + i] = null;
+}));
+
+function getStats() {
+  let total = 0;
+  let max = 0;
+  SECTIONS.forEach(s => s.items.forEach((_, i) => {
+    const v = ratings[s.id + '_' + i];
+    if (v !== null) {
+      total += v;
+      max += 2;
+    }
+  }));
+  return { total, max, pct: max > 0 ? Math.round(total / max * 100) : null };
+}
+
+function getSectionStats(sid) {
+  const s = SECTIONS.find(x => x.id === sid);
+  let total = 0;
+  let max = 0;
+  s.items.forEach((_, i) => {
+    const v = ratings[sid + '_' + i];
+    if (v !== null) {
+      total += v;
+      max += 2;
+    }
+  });
+  return { total, max, pct: max > 0 ? Math.round(total / max * 100) : null };
+}
+
+function getRank(pct) {
+  if (pct >= 95) return { label:"💎 Diamond", cls:"rank-diamond" };
+  if (pct >= 85) return { label:"🥈 Platinum", cls:"rank-platinum" };
+  if (pct >= 75) return { label:"🥇 Gold", cls:"rank-gold" };
+  return { label:"No Rank", cls:"rank-none" };
+}
+
+function renderSummary() {
+  const { total, max, pct } = getStats();
+  document.getElementById('total-pct').textContent = pct !== null ? pct + '%' : '—';
+  document.getElementById('score-detail').textContent = pct !== null ? total + ' / ' + max + ' pts' : 'No evaluation yet';
+
+  const rb = document.getElementById('rank-badge');
+  if (pct !== null) {
+    const r = getRank(pct);
+    rb.textContent = r.label;
+    rb.className = 'rank-badge ' + r.cls;
+  } else {
+    rb.textContent = 'No Rank';
+    rb.className = 'rank-badge rank-none';
+  }
+
+  document.getElementById('section-scores').innerHTML = SECTIONS.map(s => {
+    const st = getSectionStats(s.id);
+    const p = st.pct !== null ? st.pct : 0;
+    return `<div class="sec-chip">
+      <div class="sec-chip-name">${s.name}</div>
+      <div class="sec-chip-pct">${st.pct !== null ? st.pct + '%' : '—'}</div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width:${p}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderNav() {
+  document.getElementById('section-nav').innerHTML = SECTIONS.map(s =>
+    '<button class="nav-btn' + (s.id === currentSection ? ' active' : '') + '" data-sid="' + s.id + '">' + s.name + '</button>'
+  ).join('');
+
+  document.getElementById('section-nav').querySelectorAll('.nav-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      goSection(this.getAttribute('data-sid'));
+    });
+  });
+}
+
+function renderPanel() {
+  const s = SECTIONS.find(x => x.id === currentSection);
+  const st = getSectionStats(currentSection);
+
+  let html = '<div class="section-header"><div class="section-title">' + s.name + '</div><div class="section-pct">' + (st.pct !== null ? st.pct + '% (' + st.total + '/' + st.max + ' pts)' : 'Not rated yet') + '</div></div>';
+
+  s.items.forEach(function(item, i) {
+    const key = currentSection + '_' + i;
+    const v = ratings[key];
+    html += '<div class="item"><div class="item-text">' + item + '</div><div class="rating-group">'
+      + '<button class="rb' + (v === 2 ? ' sel-2' : '') + '" data-key="' + key + '" data-val="2" title="Can Do">◎</button>'
+      + '<button class="rb' + (v === 1 ? ' sel-1' : '') + '" data-key="' + key + '" data-val="1" title="Know but not doing">△</button>'
+      + '<button class="rb' + (v === 0 ? ' sel-0' : '') + '" data-key="' + key + '" data-val="0" title="Did not know">✕</button>'
+      + '</div></div>';
+  });
+
+  const panel = document.getElementById('section-panel');
+  panel.innerHTML = html;
+
+  panel.querySelectorAll('.rb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const key = this.getAttribute('data-key');
+      const val = parseInt(this.getAttribute('data-val'));
+      ratings[key] = ratings[key] === val ? null : val;
+      renderSummary();
+      renderPanel();
+    });
+  });
+}
+
+function goSection(sid) {
+  currentSection = sid;
+  renderNav();
+  renderPanel();
+}
+
+function saveRecord() {
+  const name = document.getElementById('staff-name').value.trim();
+  const date = document.getElementById('eval-date').value;
+  const evaluator = document.getElementById('evaluator').value.trim();
+
+  if (!name || !date) {
+    alert('Please enter the staff name and date.');
+    return;
+  }
+
+  const { total, max, pct } = getStats();
+  if (pct === null) {
+    alert('Please rate at least one item.');
+    return;
+  }
+
+  const rank = getRank(pct);
+  const record = {
+    id: Date.now(),
+    name,
+    date,
+    evaluator,
+    total,
+    max,
+    pct,
+    rank: rank.label,
+    ratings: { ...ratings }
+  };
+
+  const list = getHistory();
+  list.unshift(record);
+  localStorage.setItem('poke_history_en', JSON.stringify(list));
+
+  fetch('https://script.google.com/macros/s/AKfycbz-iUxTAq9WtcX6PvizcQ3KoWOfVcHOo2kdRXuSE3Ni9IzG5sYqk6ytSYalKmwPF0w_Vw/exec', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify({
+      date: date,
+      name: name,
+      evaluator: evaluator,
+      score: pct + '%',
+      rank: rank.label
+    })
+  })
+  .then(() => {
+    alert('Saved.');
+    renderHistory();
+  })
+  .catch(() => {
+    alert('Saved locally, but Google Sheets sync may have failed.');
+  });
+}
+
+function getHistory() {
+  try {
+    return JSON.parse(localStorage.getItem('poke_history_en') || '[]');
+  } catch(e) {
+    return [];
+  }
+}
+
+function renderHistory() {
+  const list = getHistory();
+  const el = document.getElementById('history-list');
+
+  if (!list.length) {
+    el.innerHTML = '<div class="empty-msg">No saved records yet.</div>';
+    return;
+  }
+
+  el.innerHTML = list.map(r =>
+    '<div class="hist-item" data-id="' + r.id + '">'
+    + '<div><div class="hist-name">' + r.name + ' ' + r.rank + '</div>'
+    + '<div class="hist-meta">' + r.date + ' Evaluator: ' + (r.evaluator || '—') + ' Score: ' + r.pct + '% (' + r.total + '/' + r.max + ' pts)</div></div>'
+    + '<button class="hist-del" data-id="' + r.id + '">Delete</button></div>'
+  ).join('');
+
+  el.querySelectorAll('.hist-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (e.target.classList.contains('hist-del')) return;
+      loadRecord(parseInt(this.getAttribute('data-id')));
+    });
+  });
+
+  el.querySelectorAll('.hist-del').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      deleteRecord(parseInt(this.getAttribute('data-id')));
+    });
+  });
+}
+
+function deleteRecord(id) {
+  if (!confirm('Delete this record?')) return;
+  const list = getHistory().filter(r => r.id !== id);
+  localStorage.setItem('poke_history_en', JSON.stringify(list));
+  renderHistory();
+}
+
+function loadRecord(id) {
+  const r = getHistory().find(x => x.id === id);
+  if (!r) return;
+
+  document.getElementById('staff-name').value = r.name;
+  document.getElementById('eval-date').value = r.date;
+  document.getElementById('evaluator').value = r.evaluator || '';
+  ratings = { ...r.ratings };
+
+  showTab('check');
+  renderSummary();
+  renderNav();
+  renderPanel();
+}
+
+function resetAll() {
+  if (!confirm('Reset all current inputs?')) return;
+
+  SECTIONS.forEach(s => s.items.forEach((_, i) => {
+    ratings[s.id + '_' + i] = null;
+  }));
+
+  document.getElementById('staff-name').value = '';
+  document.getElementById('eval-date').value = '';
+  document.getElementById('evaluator').value = '';
+
+  renderSummary();
+  renderNav();
+  renderPanel();
+}
+
+function showTab(tab) {
+  document.getElementById('tab-check').style.display = tab === 'check' ? '' : 'none';
+  document.getElementById('tab-history').style.display = tab === 'history' ? '' : 'none';
+  document.getElementById('bnav-check').classList.toggle('active', tab === 'check');
+  document.getElementById('bnav-history').classList.toggle('active', tab === 'history');
+
+  if (tab === 'history') renderHistory();
+  window.scrollTo(0, 0);
+}
+
+document.getElementById('eval-date').value = new Date().toISOString().split('T')[0];
+
+renderSummary();
+renderNav();
+renderPanel();
+
+document.querySelectorAll('.acc-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const content = this.nextElementSibling;
+
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+      content.classList.remove('open');
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.classList.add('open');
+    }
+  });
+});
+</script>
 </body>
 </html>
