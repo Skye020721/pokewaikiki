@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poke Waikiki Staff Checklist</title>
+<title>ポケワイキキ スタッフチェックシート</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -45,7 +45,6 @@
     padding: 0.85rem 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -60,18 +59,6 @@
 
   .top-bar .logo span {
     color: #a7f3d0;
-  }
-
-  .lang-switch {
-    font-size: 12px;
-    color: #fff;
-  }
-
-  .lang-switch a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    margin-left: 8px;
   }
 
   .bottom-nav {
@@ -494,13 +481,28 @@
     padding-left: 1.2rem;
     margin: 0;
   }
+
+  @media print {
+    .top-bar, .bottom-nav, .nav-scroll, .btn-save, .btn-reset {
+      display: none !important;
+    }
+
+    .container {
+      padding-bottom: 1rem;
+    }
+
+    .score-card {
+      background: #1a6b4a !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
 </style>
 </head>
 <body>
 
 <div class="top-bar">
-  <div class="logo">🌺 Poke Waikiki <span>Staff Checklist</span></div>
-  <div class="lang-switch"><a href="./index.html">日本語</a> <a href="./english.html">English</a></div>
+  <div class="logo">🌺 ポケワイキキ <span>スタッフチェックシート</span></div>
 </div>
 
 <div class="container">
@@ -508,60 +510,61 @@
   <div id="tab-check">
     <div class="card">
       <div class="info-grid">
-        <div class="field"><label>Staff Name</label><input id="staff-name" placeholder="Enter name"></div>
-        <div class="field"><label>Date</label><input id="eval-date" type="date"></div>
-        <div class="field"><label>Evaluator</label><input id="evaluator" placeholder="Evaluator name"></div>
+        <div class="field"><label>スタッフ名</label><input id="staff-name" placeholder="名前を入力"></div>
+        <div class="field"><label>日付</label><input id="eval-date" type="date"></div>
+        <div class="field"><label>評価者</label><input id="evaluator" placeholder="評価者名"></div>
       </div>
     </div>
 
     <div class="card intro-card">
 
       <div class="accordion">
-        <button class="acc-btn">💕 Read First</button>
+        <button class="acc-btn">💕 最初に読む</button>
         <div class="acc-content">
           <p>
-            This checklist was created to remind everyone that the most important thing is to stay mindful while working every time. Of course, people may forget things or make mistakes. But if each person works with awareness every day, it will naturally become a habit. Please stay mindful and take action with intention.
+            このチェックシートは、皆が毎回働いている時に、意識を持って行動することが全てだということを伝えるために作りました。もちろん忘れること、間違えることもあるでしょう。しかし、毎日仕事に入る際にそれぞれ意識をして働いていけば、自ずとできるようになります。意識をして行動しましょう。
           </p>
           <p>
-            Note: This is not about thinking, “That person is not doing it, but I am,” or comparing yourself to others. That is not the purpose of this checklist. Please do not misunderstand its intent. Let’s help each other, stay aware every day, and work together so we can do these things consistently every time.
+            注意※ だれだれはしていないよね、私はしているけど、などと思うことは少し違います。そのようなことを問いたいわけではありませんので誤解のないようにお願いします。毎回継続できるよう皆で協力して、毎日意識をして、取り組んでいきましょう。
           </p>
         </div>
       </div>
 
       <div class="accordion">
-        <button class="acc-btn">⚠ Basic Rules: 9 Points</button>
+        <button class="acc-btn">⚠ 基本事項 9点</button>
         <div class="acc-content">
           <ol class="intro-list">
-            <li>Slogan: “Serve hot food while it is hot, and cold food while it is cold.” Example: During an idle time around 3 or 4 PM, there are no customers, and chicken has been sitting out at the front for more than 40 minutes. You may think, “It’s a little cold and hard, but it’s probably okay,” and serve it anyway. Please think about that. If a customer waits 5 more minutes, they could receive a very fresh and delicious poke bowl. If there is a backup item prepared 20 minutes earlier in the back, serving the one from the front may still taste okay, but compared to our best poke bowl, the quality drops significantly. Please pay attention to business conditions and always stay aware so that we can serve delicious poke bowls. Let’s raise our awareness of serving tasty food quickly and carefully.</li>
-            <li>Do not lie. Do not lie about your work. Do not slack off. Always look for something to do. If you are not sure what to do, ask the person in charge. Looking at your phone because it is slow, or talking for a long time without working, is strictly prohibited.</li>
-            <li>Do not take company property from the store. This should be obvious, but please clearly separate company property from your own belongings. If someone takes something home without permission, regardless of how big or small it is, we will first contact the police and treat it as theft. There will be no exceptions. Wrong is wrong.</li>
-            <li>Cell phones may only be used in emergencies, and only after informing the manager or person in charge.</li>
-            <li>Always tell someone before going to the restroom. Also, if restroom breaks frequently take 15, 20, or 30 minutes, inappropriate use may become subject to warning. Use the second-floor restroom. If it is crowded, use the first- or fourth-floor restroom. Please remove your uniform before using the restroom. When you return to the store, washing your hands again is mandatory.</li>
-            <li>If a customer is looking at the sign or menu board, speak to them immediately. If you are busy working in the kitchen, always stay aware of the front. If someone is looking at the menu, go to the front right away, say hello, and explain things such as the bowl sizes. Important: Please do not decide on your own that “they are just looking, so it’s fine.” That is not okay. Go to the front first. Having a staff member at the front is basic restaurant common sense. Normally, having nobody there is not acceptable. With only two staff members, there will be times when both people are working inside, but please respond flexibly. Always stay aware of the front.</li>
-            <li>Follow the drink rules. The company provides one bottle of water per person, or two bottles if you work both lunch and dinner. However, please do not drink the large water bottles. Other drinks and juices must be purchased at the staff price.</li>
-            <li>Do not be late. It is basic common sense that by the time your shift starts, you should already be in uniform, have washed your hands, and clocked in. Regularly arriving late makes it difficult to work here and causes people to lose trust in you. Please be on time. If you are going to be late, contact us.</li>
-            <li>Staff meal is one bowl per person, and the portion should be the same as a regular bowl. If someone is taking more than that, please report it. If something was made by mistake, remove the protein properly in the kitchen and use it later if possible. It is best to eat it as staff meal, but please ask first.</li>
+            <li>スローガン『温かいものは温かいうちに　冷たいものは冷たいうちに』
+              例)３，4時頃のアイドルタイム、お客様がいないので40分以上フロントに出ているチキンを少し冷たく固いけどまいっか、と思いご提供した。かんがえてみてください。5分待てば極フレッシュおいしいポケボール、後ろに20分前の予備があれば、美味しいポケボールそのままフロントのをだせば、味は美味しいが、私たちの最高のポケボールと比べてかなり落ちるポケボール。うまく営業状況を見ながら、美味しいポケボールをご提供できるように個々が意識してください。美味しいものを、早く、丁寧に、ご提供する意識度を上げていきましょう。</li>
+            <li>うそをつかない！仕事にうそをつかない！（さぼらない）いつもすることを探し、わからない場合は責任者に何をすればよいか聞くこと。暇だから携帯をみる、お話をずっとしている行為は厳禁です。</li>
+            <li>会社の（お店の）ものをもっていかない。当たり前ですが、会社と自分のものを区別してください。もし勝手に持ち帰るようなことがあれば、盗難として大きい、小さい関係なく、まず警察へ連絡します。容赦はしません。ダメなことはダメです。</li>
+            <li>携帯電話は緊急時のみ、責任者に伝えて使用すること！</li>
+            <li>トイレは必ず一言伝えてから行くこと！また、時間が15分、20分、30分かかることが、頻繁にある場合など、不適切な利用は注意の対象となる可能性があります。トイレは2階を使用する。混んでいる際は1階、４階を使用する。※ユニフォームは脱いでトイレを使用してください。そしてお店に帰ってきたら必ず、再度手を洗うことが必須です。</li>
+            <li>お客様が看板を見ていたらすぐに声をかけること。忙しくキッチンで作業している際は、フロントをいつも意識して、メニューを見ていたらすぐにフロントに行き、ハローと声をかけ、サイズはこちらですなど伝える。注意！！見てるだけだからいいや、と自分勝手に判断してフロントに行かないのはNGでお願いします。まずフロントに行ってください。フロントにスタッフが必ずいることは飲食店の常識です。いないのは、通常はNGです。2人体制の場合は特に中で作業がありますが、臨機応変に対応してください。フロントを意識</li>
+            <li>⑦	ドリンクルールを守ること！お水を会社から1本（昼夜両方は2本）提供します。しかし大きなお水は飲まないでください。他ジュース類は、Staff金額で購入してください。</li>
+            <li>遅刻をしないこと!（シフト時間までには、ユニフォームを着て、手洗いをし、打刻しなくてはいけないのは常識です。ふつうに遅れてくるのは、働くことが難しいですね。まず信頼を失っていきます。きちんと時間を守りましょう)　万が一、遅れる際は連絡をください。</li>
+            <li>まかないは、ひとり1ボール。普通のものと同じ量！多く持っていっていく人がいる場合は連絡ください。まちがいで作ってしまったものは、キッチンでプロテインだけうまくとりのぞき、使用できる際に使用してください。賄いで食べるのが一番良いですが。相談してください。</li>
           </ol>
         </div>
       </div>
 
       <div class="accordion">
-        <button class="acc-btn">🔥 Main Focus</button>
+        <button class="acc-btn">🔥 本題</button>
         <div class="acc-content">
           <p>
-            For our food court business, keeping the inside of the front refrigerator beautiful and clean is one of the most important things. It is the heart of the store. If the front area looks dirty, customers will feel less interested in buying.
+            私たちのこのフードコートビジネスにとって、フロントの冷蔵機の中を美しく、綺麗に見せることは最も重要です。いわば心臓の部分。フロントが汚ければ、買いたい気持ちが減少します。
           </p>
           <p>
-            The front glass must always be wiped in the morning and evening, and the vegetables and fish should always look fresh and abundant. Please also keep the inside of the refrigerator clean at all times.
+            フロントガラスは、朝と夕方は必ず拭き、野菜や魚も常においしそうに見えるように、モリモリに盛り付けてください。冷蔵機の内側も常に綺麗に保ちましょう。
           </p>
           <p>
-            ★ Customer first. We cannot make money if we do not sell. That is the basic principle. Please communicate with each other and work together so operations run smoothly.
+            ★お客様ファースト！ 売らないと儲からない、基本です。皆で声を掛け合って、営業がスムースに動くように協力してください。
           </p>
           <p>
-            ★ Food poisoning. Because we handle raw products, please strictly follow handwashing, glove changes, and sanitation rules. If food poisoning happens, the store and the company could both be finished.
+            ★食中毒！ 生ものを扱うため、手洗い、手袋交換、衛生管理を徹底してください。食中毒が出たら、お店も会社もなくなります。
           </p>
           <p>
-            Please check each item below. This will be handed out every month, so please review it carefully. There will be things you can do, things you are not doing yet, and things you did not know. Let’s make sure we understand all of them clearly.
+            以下チェック項目にチェックを入れ、毎月渡しますので確認をお願いします。できてること、できてないこと、知らないことなどあると思いますが、把握できるようにしましょう！
           </p>
         </div>
       </div>
@@ -572,25 +575,25 @@
       <div class="score-top">
         <div>
           <div class="score-big" id="total-pct">—</div>
-          <div class="score-sub" id="score-detail">No evaluation yet</div>
+          <div class="score-sub" id="score-detail">まだ評価がありません</div>
         </div>
-        <div class="rank-badge rank-none" id="rank-badge">No Rank</div>
+        <div class="rank-badge rank-none" id="rank-badge">ランクなし</div>
       </div>
-      <div class="legend">◎ Can Do = 2 pts　△ Know but not doing = 1 pt　✕ Did not know = 0 pt</div>
+      <div class="legend">◎ できる＝2点　△ 知っているができていない＝1点　✕ 知らなかった＝0点</div>
       <div class="section-grid" id="section-scores"></div>
     </div>
 
     <div class="nav-scroll" id="section-nav"></div>
     <div class="card" id="section-panel"></div>
 
-    <button class="btn-save" onclick="saveRecord()">✓ Save Result</button>
-    <button class="btn-reset" onclick="resetAll()">Reset</button>
+    <button class="btn-save" onclick="saveRecord()">✓ この結果を保存する</button>
+    <button class="btn-reset" onclick="resetAll()">リセット</button>
   </div>
 
   <div id="tab-history" style="display:none;">
     <div class="card">
-      <div style="font-size:15px; font-weight:700; margin-bottom:1rem; color:var(--text);">Saved History</div>
-      <div id="history-list"><div class="empty-msg">No saved records yet.</div></div>
+      <div style="font-size:15px; font-weight:700; margin-bottom:1rem; color:var(--text);">保存済み履歴</div>
+      <div id="history-list"><div class="empty-msg">まだ保存された記録はありません。</div></div>
     </div>
   </div>
 
@@ -598,186 +601,186 @@
 
 <nav class="bottom-nav">
   <button class="bnav-btn active" id="bnav-check" onclick="showTab('check')">
-    <span class="icon">☑️</span>Check
+    <span class="icon">☑️</span>チェック
   </button>
   <button class="bnav-btn" id="bnav-history" onclick="showTab('history')">
-    <span class="icon">🕐</span>History
+    <span class="icon">🕐</span>履歴
   </button>
 </nav>
 
 <script>
 const SECTIONS = [
-  { id:"front", name:"Front Area", items:[
-    "Can wipe the entire front area and kitchen area with alcohol sanitizer",
-    "Can properly clean the front glass, the glass in front of the chicken, the glass in front of the chips, and the doors that are opened and closed using Windex",
-    "Can turn on the front refrigerator switch and check the temperature",
-    "If the towel is dirty, can rinse it clean in the sink in the back",
-    "Can wipe all tables and surfaces with alcohol sanitizer",
-    "Understands that it is important to keep the inside of the front refrigerator looking beautiful and clean",
-    "Understands and practices wiping the refrigerator glass with Windex in the morning and evening",
-    "Can keep the vegetables and fish looking full and fresh at all times",
-    "After refilling fish or changing vegetables, can make containers that are not being used right away still look naturally full and attractive",
-    "Can always keep the inside of the refrigerator clean",
-    "Can immediately speak to customers when they are looking at the menu sign",
-    "When there are only two staff members and nobody is at the front, can quickly go to the front and speak to customers when they are looking at the menu"
+  { id:"front", name:"フロント", items:[
+    "フロント全体、キッチン全体をアルコールで拭くことができる",
+    "フロントのガラス、チキン前、チップス前のグラス、開け閉めするドアをwindexでしっかり拭くことができる",
+    "フロント冷蔵庫スイッチをつけて、温度をチェックすることができる",
+    "ふきんが汚い場合、後ろのシンクできれいにゆすぐことができる",
+    "全部机などアルコールでふくことができる",
+    "フロントの冷蔵機の中を美しく綺麗に見せることが重要であることを理解している",
+    "朝、夕方は必ず冷蔵機のガラスをWindexで拭いてきれいにすることができる意識している",
+    "中の野菜や魚たちをいつもモリモリに保つことができる",
+    "魚を出した後、野菜を入れ替えた後に、すぐに使わない缶もふわふわに自然に見えるようにすることができる",
+    "冷蔵機内側をいつも綺麗に拭くことができる",
+    "お客様がメニュー看板を見ていたらすぐに声をかけることができる",
+    "2人体制でフロントにいないときに、お客様がメニューを見ていたらすぐにフロントに行き声をかけることができる"
   ]},
-  { id:"front-basic", name:"Front Basics", items:[
-    "Can wash hands properly",
-    "Can provide register service with a smile",
-    "Can greet people standing in front of the store and looking at the menu, such as saying Hello",
-    "Always speaks to people who are looking at the menu (Hi, welcome, Try Hawaii's best favorite!)",
-    "Can also keep eye contact with people waiting at the register or standing behind and say, 'I'll get your order soon.'",
-    "Can explain the bowl sizes and capacity to customers deciding in front of the store",
-    "When it looks like it will take time, can say things like 'I'll be right with you' or 'Give me one second'",
-    "Understands that there must always be one person at the front",
-    "Understands the reason for taking multiple orders first and then making them when only one person is operating the front",
-    "Understands why staff should not speak Japanese to each other in front of customers",
-    "If a customer makes a mistake or drops something, can immediately make a new one",
-    "Can pay attention to hygiene, including changing gloves and washing hands",
-    "Understands that phones should not be checked during work except when necessary",
-    "Always stays aware of hygiene, handwashing, and alcohol sanitizing",
-    "Can always respond with a smile",
-    "After making a bowl, can immediately reset the ingredients so they look full again",
-    "Can make the morning fish display look full and appealing from the start of the day",
-    "Can always refill toppings in the showcase",
-    "Can always wipe and organize the surrounding area",
-    "Can prioritize customers whenever they are choosing items at the front",
-    "If something falls to the floor and it must be picked up, can change gloves afterward"
+  { id:"front-basic", name:"フロント基本事項", items:[
+    "手洗いができる",
+    "笑顔でレジの接客ができる",
+    "お店の前でメニューを見て考えている人にHelloなど声掛けができる",
+    "見ている人に必ず話しかける（Hi, welcome, Try Hawaii's best favorite!）",
+    "レジに並ぶ人、後ろの人たちにも目くばせ＆ I get your order soon.",
+    "お店の前で悩んでいる人に、スモールやミディアムの容器の容量説明ができる",
+    "時間がかかりそうなときは I'll be right with you, give me one second など伝えることができる",
+    "必ずフロントに1人いなくてはいけないことを理解している",
+    "フロント一人オペレーションの場合、複数組のオーダーをまとめて取ってから作る意味を理解している",
+    "フロントのお客様の前でスタッフ同士で日本語を話さないようにする意味を分かっている",
+    "お客様が間違えたり落としてしまったりしたら、すぐに新しいものをお作りすることができる",
+    "衛生に気を使い、手袋交換・手洗いなどができる",
+    "仕事中は必要な時以外携帯を見ないことを理解している",
+    "いつも衛生に気を配り、手洗い・アルコール消毒を意識している",
+    "いつも笑顔で対応することができる",
+    "ボールを作った後、すぐにもりもりにリセットすることができる",
+    "朝の前セット魚は、もりもり感を朝から出すことができる",
+    "ショーケースの中のトッピングをいつも補充できる",
+    "いつも周りをきれいに拭いたり整えたりすることができる",
+    "お客様がフロントにいて選んでいる時など、お客様優先で対応できる",
+    "下のものが落ちてしまった時、拾うなら手袋を変えることができる"
   ]},
-  { id:"fish-front", name:"Front Fish", items:[
-    "Can cleanly and thoroughly remove the fish sheet",
-    "Can check whether water has collected in the fish container and wipe it out when there are no customers",
-    "Can notice unusual color or condition and report it",
-    "When placing fish out, can carefully remove paper and day-of-week stickers so customers do not see them, and can fluff and arrange the fish properly"
+  { id:"fish-front", name:"フロント魚", items:[
+    "魚のシートをきれいにしっかりとることができる",
+    "魚の中に水分がある際を確認し、お客様がいないときにふき取ることができる",
+    "色が変だったり様子がおかしい時に注意して見て伝えることができる",
+    "魚出す際にペーパーや曜日シールをお客様が見えないように丁寧に取り、しっかりふわふわにセットすることができる"
   ]},
-  { id:"veg-front", name:"Front Vegetables", items:[
-    "When changing vegetables, can remove the plastic wrap carefully to avoid contamination",
-    "If vegetables such as tomatoes seem to have too much liquid, can smartly discard the liquid into the sink on the right when there are no customers",
-    "Can set both vegetable containers so they look full and fresh"
+  { id:"veg-front", name:"フロント野菜", items:[
+    "野菜の入れ替え時に、ラップが異物混入しないように気を付けながらラップを取ることができる",
+    "Tomatoなどに汁が溜まってそうな時は、お客様がいない時に汁を右の流し台にスマートに捨てることができる",
+    "野菜たちを2缶ともふわふわにセットできる"
   ]},
-  { id:"poke", name:"POKE Making & Plating", items:[
-    "Understands that the idea of 'it's okay if it looks messy because sauce goes on last' is not acceptable; always keeps presentation clean because customers are watching",
-    "Can flatten rice without pressing it down too hard",
-    "Can add the proper amount of ponzu sauce",
-    "Can add the proper amount of sesame seeds evenly",
-    "Can add the proper amount of vegetables",
-    "When adding vegetables, can place them along the edges so white rice is visible in the center",
-    "Can scoop the proper amount of protein",
-    "Can mix thoroughly at least 15 times",
-    "Can add the proper amount of sauce: Small 5 times, Medium 7 times",
-    "Can place the main protein attractively in the center",
-    "For Ahi Salmon bowls, can spread the protein nicely when placing it",
-    "Can plate beautifully (not too much lettuce; protein should be the main focus)",
-    "For Medium bowls, can distribute ingredients well without piling too much only in the center",
-    "Understands the method for chicken bowls: make the shape first with chicken, then add fish",
-    "Understands the correct portion for tofu bowls (S 6-7, M 8-9)",
-    "Understands the correct portion for tofu + chicken bowls (S 4-5, M 5-6)",
-    "If the protein amount looks too small, can respond flexibly",
-    "Can call out the number loudly and press the number button",
-    "If the customer does not come right away, can put a lid on the bowl so dust does not get in",
-    "Can add the right amount of lettuce for salad bowls",
-    "Can plate avocado neatly according to store standards"
+  { id:"poke", name:"POKE作り・盛り付け", items:[
+    "最後にソースかけるから汚くてもいいや、の考えはやめてください。いつも綺麗に！を意識！お客様もあなたの盛り付けを見ていますの意味合いを理解している",
+    "ライスを平らに押しつぶしすぎないように平たくすることができる",
+    "適量のポン酢ソースをかけることができる",
+    "セサミシードを全体的に適量かけることができる",
+    "適量の野菜を入れることができる",
+    "野菜を入れる際に、真ん中に白ご飯が見えるように端側に入れることができる",
+    "適量のプロテインを救うことができる",
+    "しっかり15回以上かき混ぜることができる",
+    "ソースをS5回、M7回適量かけることができる",
+    "メインのプロテインを真ん中に見栄え良くデザインして入れることができる",
+    "AhiSalmonの場合、広げて入れることができる",
+    "きれいに盛り付けることができる（レタス入れすぎない、メインはプロテイン）",
+    "Mの場合も真ん中だけにたまりすぎないようにうまく入れることができる",
+    "チキンの場合、先にチキンでフォームを作りFishを入れる方法を理解している",
+    "TOFUボールの適量を理解している（S6,7　M8,9）",
+    "TOFUxチキンボールの適量を理解している（S4,5　M5,6）",
+    "プロテインが少なすぎる場合は臨機応変に対応することができる",
+    "声を出して呼び、番号ボタンを押すことができる",
+    "お客様が来ない場合は蓋をしてほこりなどが入らないようにすることができる",
+    "サラダボールのレタスをちょうど良い量で入れることができる",
+    "アボカドをきれいに規定通りにボールに盛り付けすることができる"
   ]},
-  { id:"operation", name:"Operation", items:[
-    "Understands the meaning of customer first",
-    "Understands why one person must always stay in front",
-    "When the front starts getting busy, can immediately move to the front",
-    "Understands that the prep person should go out first",
-    "The person in charge of fish can loudly say, 'Please cover the front.'",
-    "If unable to go immediately, can communicate with each other clearly",
-    "Understands that when many customers arrive, everyone must gather at the front immediately",
-    "Understands that when multiple groups line up, it is better to take all orders first and then make them together",
-    "Can communicate during work by speaking up, such as 'Front please!' or 'Chicken is half left.'",
-    "When chicken is needed during a slow time, can immediately call out through the window, 'Chicken please.'"
+  { id:"operation", name:"オペレーション", items:[
+    "お客様ファーストの意味を理解している",
+    "必ず一人前にいる意味を分かっている",
+    "フロントが込んできた際はすぐに前に出ていく",
+    "仕込みの人が先に出ることを理解している",
+    "魚担当の人はフロントお願いしまーすと大きな声で声掛けをできる",
+    "すぐいけない場合はお互い声掛けをできる",
+    "お客様がたくさん来たらすぐに全員フロント集合しなくてはいけない意味を理解している",
+    "複数組並んだ時、一気にオーダーをとってから一気に作ることを理解している",
+    "声を出してフロントお願いします！やチキン残り半分ですなど仕事でのコミュニケーションができる",
+    "込んでいないときにチキンが必要な場合、迷わず窓からチキンお願いしますと声をかけることができる"
   ]},
-  { id:"idle", name:"Idle Time", items:[
-    "Can wipe refrigerator handles and glass for juices and other drinks",
-    "Can wipe around the chicken area, rice cooker area, and register",
-    "Can restock juice, on-the-side sauces, vegetables, rice, and other items"
+  { id:"idle", name:"アイドルタイム", items:[
+    "ジュースなどの冷蔵庫の取っ手やグラスを拭くことができる",
+    "チキン回りやライスクッカー回り、レジなどきれいに拭くことができる",
+    "ジュース、On the sideソース、野菜、ライスなど補充ができる"
   ]},
-  { id:"chicken", name:"Chicken", items:[
-    "When placing chicken at the front, can arrange it neatly on the side where the light hits it",
-    "Can place the leaves underneath neatly from the customer's point of view",
-    "During idle times and similar periods, stays aware not to serve old or hardened chicken and instead serve fresh chicken",
-    "When it is slow, does not leave chicken at the front too long and has the awareness to keep it warm in the internal basket so better chicken can be served",
-    "If there will be a wait, can clearly explain it to the customer",
-    "Can cut all the way through the skin properly",
-    "Can fry chicken",
-    "Can decide when to fry chicken by understanding the customer situation",
-    "Can communicate with the team about when chicken is running out and how many pieces are needed",
-    "Can stand the fried chicken vertically in the basket so oil drains properly"
+  { id:"chicken", name:"チキン", items:[
+    "フロントにチキン置くときに電気が当たっている方にきれいにまとめセットできる",
+    "下に敷いている葉っぱをきちんとお客様目線でセットすることができる",
+    "アイドルタイムなどに古く固くなったチキンを提供せず新しいものを提供するよう意識できている",
+    "暇なときにチキンをフロントにずっと置かないで内部のカゴで保温しておいしいものを提供しようとする意識がある",
+    "提供に時間がかかる場合お客様にしっかり説明することができる",
+    "きちんと皮までカットすることができる",
+    "チキンを揚げることができる",
+    "お客様の状況を把握し、チキンを揚げることができる",
+    "皆で協力してチキンがなくなったこと、何個必要などコミュニケーションがとれる",
+    "油を落とすために揚がったチキンをカゴの中で縦に置き換えることができる"
   ]},
-  { id:"rice", name:"Rice", items:[
-    "Can cook rice",
-    "Can wash rice",
-    "Can turn off the keep-warm setting immediately after the rice is cooked",
-    "Can check the prep amount needed and wash the correct amount of rice",
-    "After the keep-warm setting is turned off and some time has passed, can lightly mix the rice",
-    "Can move the rice into bowls in halves",
-    "After moving rice into bowls, can cover with paper and plastic wrap and write the time",
-    "Can replace the rice when the previous batch runs out",
-    "Can mix the rice after letting it steam for about 15 minutes after cooking",
-    "Can remove and discard the water from behind the rice cooker every day",
-    "Can clean the edges of the rice cooker",
-    "Can regularly check the smell and moisture of the morning rice"
+  { id:"rice", name:"お米", items:[
+    "ライスを炊くことができる",
+    "ライスを洗うことができる",
+    "ライスがたけた後すぐに保温を切ることができる",
+    "お米仕込み量を確認して洗うことができる",
+    "保温を切って少し経ったら、ライスを少し混ぜることができる",
+    "ライスを半分ずつボールに移すことができる",
+    "ライスをボールに移した後、ペーパーとラップをし時間を書くことができる",
+    "前のライスがなくなったときにライスを入れ替えることができる",
+    "炊き上がったご飯を15分ほど蒸らした後かき混ぜることができる",
+    "ライスクッカーの裏の水をとって毎日捨てることができる",
+    "ライスクッカーのふちをきれいにできる",
+    "朝のライスのにおい・水水しさなど随時チェックできる"
   ]},
-  { id:"wash", name:"Washing", items:[
-    "Can wash thoroughly",
-    "Knows how to wash the black fish trays properly, including the corners and outer edges",
-    "Can remove dirt from inside scoopers and make sure no residue remains",
-    "After washing scoopers or fryer nets, can check that no metal pieces or brush hairs are attached",
-    "Can properly place dirty dishes brought from the front into hot water",
-    "After taking items out of sanitizer, can place them in a way that drains water properly and allows them to dry",
-    "Can return dry items to their correct locations",
-    "Can move sink containers and clean behind them thoroughly",
-    "Can wash the back-left sink with a brush every day"
+  { id:"wash", name:"洗い", items:[
+    "しっかり洗うことができる",
+    "魚の黒のバットの洗い方を知っている（角や外の淵もしっかり洗う）",
+    "スクーパーは中の汚れまでとる（カスが残らないよう確認できる）",
+    "スクーパーやフライヤー網を洗った後に、金具や毛がついていないか確認できる",
+    "前から持ってきた洗い物をきちんとお湯の中に入れることができる",
+    "サニタイザーから取り出し、きちんと水が切れるように工夫して置き乾かすことができる",
+    "乾いたものを定位置にきちんと戻すことができる",
+    "シンクの入れ物を動かして裏側もしっかり洗うことができる",
+    "左奥のシンクを毎日ブラシで洗うことができる"
   ]},
-  { id:"clean", name:"Cleaning", items:[
-    "When there is free time, can wipe and sanitize in front of the cashier, around the chicken area, and around the refrigerator",
-    "When there is free time, can wipe the shelf under the chicken table clean",
-    "Can clean the sinks and the very back sink every day",
-    "Can wipe the front refrigerator clean in the morning and evening",
-    "Can wipe the refrigerator doors clean",
-    "Can clean the hand wash sink",
-    "After using a table, can clean the area used",
-    "Can clean the floor"
+  { id:"clean", name:"クリーン", items:[
+    "手が空いた際に、キャッシャー前やチキン回り、冷蔵機などをアルコールで拭き掃除することができる",
+    "手が空いた際に、チキン台の下のシェルフをきれいに拭くことができる",
+    "シンクや一番後ろのシンクを毎日きれいに洗うことができる",
+    "フロント冷蔵機を朝・夕方きれいに拭くことができる",
+    "冷蔵機のドアをきれいに拭くことができる",
+    "Hand Washシンクをきれいに掃除できる",
+    "自分がテーブルを使い終わった際に、自分が使用した場所をきれいにすることができる",
+    "床をきれいに掃除できる"
   ]},
-  { id:"other", name:"Other", items:[
-    "Can clock in and clock out at the front register",
-    "Does not throw used paper towels into the trash from a distance",
-    "Does not speak Japanese in front of customers",
-    "Does not talk loudly about unrelated topics in front of customers",
-    "Does not speak badly about others",
-    "Can work while respecting different values and perspectives",
-    "Can prepare shredded nori in the proper size without crushing it too much",
-    "Understands that staff meal is one bowl per person and the same portion as a regular bowl",
-    "Knows that drinks can be purchased for $1 each",
-    "Knows that one bottle of water per person is allowed",
-    "Can put raw items back into the refrigerator immediately",
-    "Drinks beverages facing away from the front, either at the side or in the kitchen",
-    "Can throw away trash from front cleaning into the kitchen trash can",
-    "When delivery arrives, can sign and place the invoice into the envelope",
-    "Can report when the last stock of forks, napkins, or similar items is used"
+  { id:"other", name:"その他", items:[
+    "クロックイン・クロックアウトは前のレジですることができる",
+    "手を拭いたりした後に、ゴミ箱にペーパーを投げて捨てない",
+    "お客様の前で日本語で話さない",
+    "お客様の前で大きな声で関係ないことを話さない",
+    "人の悪口を言わない",
+    "それぞれの多様な価値観を尊重しながら働くことができる",
+    "きざみのりを揉みすぎずに適切なサイズで用意することができる",
+    "賄いは一人1ボール、通常と同じ分量ということを理解している",
+    "ドリンクを買う場合は、一人＄1で買えることを知っている",
+    "お水は一人1本飲んでよいことを知っている",
+    "生ものはすぐに冷蔵庫にしまうことができる",
+    "ドリンクは後ろを向いてはじの方かキッチンで飲む",
+    "フロント掃除のゴミクズはキッチンのゴミ箱に捨てることができる",
+    "デリバリーが来たらサインをし、Invoiceを封筒に入れることができる",
+    "フォークやナプキンなど最後のストックを使用した際に報告できる"
   ]},
-  { id:"fish-prep", name:"Fish Prep", items:[
-    "After delivery arrives, can immediately store items in the refrigerator",
-    "While cutting fish, if leaving it out for a long time, can manage sanitation by wrapping it and returning it to the refrigerator",
-    "Can check whether the black tray is clean before using it",
-    "Can cut fish into the right size, not too large and not too small"
+  { id:"fish-prep", name:"魚（仕込み）", items:[
+    "デリバリー到着後はすぐに冷蔵庫にしまうことができる",
+    "魚を切っている最中に長い時間外に出る際はラップをして冷蔵庫にしまうなど衛生管理をできる",
+    "黒バットがきれいか確認し使用することができる",
+    "大きすぎず小さすぎずのちょうどよい大きさにカットすることができる"
   ]},
-  { id:"prep", name:"Prep", items:[
-    "Can cut lettuce to the right size, not too small and not too large",
-    "Can complete the front setup before the 10:00 opening time",
-    "Can wipe the front glass before the 10:00 opening time or first thing in the day",
-    "Can set the fan under the refrigerator facing outward",
-    "Can complete each prep task",
-    "Knows how to wash rice and can do it",
-    "Can calculate how much rice needs to be prepared and wash the correct amount",
-    "Can thoroughly clean the table after using it",
-    "Can work together with others to move prep forward",
-    "Can cut avocado neatly according to standards and place it into containers",
-    "Can prep potatoes",
-    "Can do prep while watching the front and prioritizing customers"
+  { id:"prep", name:"仕込み", items:[
+    "レタスカットは小さすぎず大きすぎずカットできる",
+    "10時のオープン前までにフロントのセットができる",
+    "10時のオープン前または一番最初にフロントのガラス拭きができる",
+    "冷蔵機下の扇風機を外向きにセットできる",
+    "それぞれの仕込みができる",
+    "ライスの洗い方を知っていて洗える",
+    "ライスをどのくらい仕込めばよいか計算して洗いができる",
+    "使用したテーブルをしっかりきれいにすることができる",
+    "皆で連携して仕込みを進めることができる",
+    "アボカドをきれいに規定通りに切ってタッパーに入れることができる",
+    "芋の仕込みができる",
+    "フロントを見ながらお客様優先で仕込みができる"
   ]}
 ];
 
@@ -816,16 +819,16 @@ function getSectionStats(sid) {
 }
 
 function getRank(pct) {
-  if (pct >= 95) return { label:"💎 Diamond", cls:"rank-diamond" };
-  if (pct >= 85) return { label:"🥈 Platinum", cls:"rank-platinum" };
-  if (pct >= 75) return { label:"🥇 Gold", cls:"rank-gold" };
-  return { label:"No Rank", cls:"rank-none" };
+  if (pct >= 95) return { label:"💎 ダイヤモンド", cls:"rank-diamond" };
+  if (pct >= 85) return { label:"🥈 プラチナ", cls:"rank-platinum" };
+  if (pct >= 75) return { label:"🥇 ゴールド", cls:"rank-gold" };
+  return { label:"ランクなし", cls:"rank-none" };
 }
 
 function renderSummary() {
   const { total, max, pct } = getStats();
   document.getElementById('total-pct').textContent = pct !== null ? pct + '%' : '—';
-  document.getElementById('score-detail').textContent = pct !== null ? total + ' / ' + max + ' pts' : 'No evaluation yet';
+  document.getElementById('score-detail').textContent = pct !== null ? total + ' / ' + max + '点' : 'まだ評価がありません';
 
   const rb = document.getElementById('rank-badge');
   if (pct !== null) {
@@ -833,7 +836,7 @@ function renderSummary() {
     rb.textContent = r.label;
     rb.className = 'rank-badge ' + r.cls;
   } else {
-    rb.textContent = 'No Rank';
+    rb.textContent = 'ランクなし';
     rb.className = 'rank-badge rank-none';
   }
 
@@ -864,15 +867,15 @@ function renderPanel() {
   const s = SECTIONS.find(x => x.id === currentSection);
   const st = getSectionStats(currentSection);
 
-  let html = '<div class="section-header"><div class="section-title">' + s.name + '</div><div class="section-pct">' + (st.pct !== null ? st.pct + '% (' + st.total + '/' + st.max + ' pts)' : 'Not rated yet') + '</div></div>';
+  let html = '<div class="section-header"><div class="section-title">' + s.name + '</div><div class="section-pct">' + (st.pct !== null ? st.pct + '%(' + st.total + '/' + st.max + 'pt)' : '未評価') + '</div></div>';
 
   s.items.forEach(function(item, i) {
     const key = currentSection + '_' + i;
     const v = ratings[key];
     html += '<div class="item"><div class="item-text">' + item + '</div><div class="rating-group">'
-      + '<button class="rb' + (v === 2 ? ' sel-2' : '') + '" data-key="' + key + '" data-val="2" title="Can Do">◎</button>'
-      + '<button class="rb' + (v === 1 ? ' sel-1' : '') + '" data-key="' + key + '" data-val="1" title="Know but not doing">△</button>'
-      + '<button class="rb' + (v === 0 ? ' sel-0' : '') + '" data-key="' + key + '" data-val="0" title="Did not know">✕</button>'
+      + '<button class="rb' + (v === 2 ? ' sel-2' : '') + '" data-key="' + key + '" data-val="2">◎</button>'
+      + '<button class="rb' + (v === 1 ? ' sel-1' : '') + '" data-key="' + key + '" data-val="1">△</button>'
+      + '<button class="rb' + (v === 0 ? ' sel-0' : '') + '" data-key="' + key + '" data-val="0">✕</button>'
       + '</div></div>';
   });
 
@@ -902,13 +905,13 @@ function saveRecord() {
   const evaluator = document.getElementById('evaluator').value.trim();
 
   if (!name || !date) {
-    alert('Please enter the staff name and date.');
+    alert('スタッフ名と日付を入力してください');
     return;
   }
 
   const { total, max, pct } = getStats();
   if (pct === null) {
-    alert('Please rate at least one item.');
+    alert('少なくとも1つ評価してください');
     return;
   }
 
@@ -927,34 +930,13 @@ function saveRecord() {
 
   const list = getHistory();
   list.unshift(record);
-  localStorage.setItem('poke_history_en', JSON.stringify(list));
-
-  fetch('https://script.google.com/macros/s/AKfycbz-iUxTAq9WtcX6PvizcQ3KoWOfVcHOo2kdRXuSE3Ni9IzG5sYqk6ytSYalKmwPF0w_Vw/exec', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8'
-    },
-    body: JSON.stringify({
-      date: date,
-      name: name,
-      evaluator: evaluator,
-      score: pct + '%',
-      rank: rank.label
-    })
-  })
-  .then(() => {
-    alert('Saved.');
-    renderHistory();
-  })
-  .catch(() => {
-    alert('Saved locally, but Google Sheets sync may have failed.');
-  });
+  localStorage.setItem('poke_history', JSON.stringify(list));
+  alert('保存しました！');
 }
 
 function getHistory() {
   try {
-    return JSON.parse(localStorage.getItem('poke_history_en') || '[]');
+    return JSON.parse(localStorage.getItem('poke_history') || '[]');
   } catch(e) {
     return [];
   }
@@ -965,15 +947,15 @@ function renderHistory() {
   const el = document.getElementById('history-list');
 
   if (!list.length) {
-    el.innerHTML = '<div class="empty-msg">No saved records yet.</div>';
+    el.innerHTML = '<div class="empty-msg">まだ保存された記録はありません。</div>';
     return;
   }
 
   el.innerHTML = list.map(r =>
     '<div class="hist-item" data-id="' + r.id + '">'
-    + '<div><div class="hist-name">' + r.name + ' ' + r.rank + '</div>'
-    + '<div class="hist-meta">' + r.date + ' Evaluator: ' + (r.evaluator || '—') + ' Score: ' + r.pct + '% (' + r.total + '/' + r.max + ' pts)</div></div>'
-    + '<button class="hist-del" data-id="' + r.id + '">Delete</button></div>'
+    + '<div><div class="hist-name">' + r.name + '　' + r.rank + '</div>'
+    + '<div class="hist-meta">' + r.date + '　評価者: ' + (r.evaluator || '—') + '　スコア: ' + r.pct + '%（' + r.total + '/' + r.max + '点）</div></div>'
+    + '<button class="hist-del" data-id="' + r.id + '">削除</button></div>'
   ).join('');
 
   el.querySelectorAll('.hist-item').forEach(function(item) {
@@ -992,9 +974,9 @@ function renderHistory() {
 }
 
 function deleteRecord(id) {
-  if (!confirm('Delete this record?')) return;
+  if (!confirm('この記録を削除しますか？')) return;
   const list = getHistory().filter(r => r.id !== id);
-  localStorage.setItem('poke_history_en', JSON.stringify(list));
+  localStorage.setItem('poke_history', JSON.stringify(list));
   renderHistory();
 }
 
@@ -1014,7 +996,7 @@ function loadRecord(id) {
 }
 
 function resetAll() {
-  if (!confirm('Reset all current inputs?')) return;
+  if (!confirm('現在の入力をすべてリセットしますか？')) return;
 
   SECTIONS.forEach(s => s.items.forEach((_, i) => {
     ratings[s.id + '_' + i] = null;
